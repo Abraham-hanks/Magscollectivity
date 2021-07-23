@@ -1,0 +1,150 @@
+[
+    {
+        "id": 1,
+        "name": "Abia"
+    },
+    {
+        "id": 2,
+        "name": "Abuja"
+    },
+    {
+        "id": 3,
+        "name": "Adamawa"
+    },
+    {
+        "id": 4,
+        "name": "Akwa Ibom"
+    },
+    {
+        "id": 5,
+        "name": "Anambra"
+    },
+    {
+        "id": 6,
+        "name": "Bauchi"
+    },
+    {
+        "id": 7,
+        "name": "Bayelsa"
+    },
+    {
+        "id": 8,
+        "name": "Benue"
+    },
+    {
+        "id": 9,
+        "name": "Borno"
+    },
+    {
+        "id": 10,
+        "name": "Cross River"
+    },
+    {
+        "id": 11,
+        "name": "Delta"
+    },
+    {
+        "id": 12,
+        "name": "Ebonyi"
+    },
+    {
+        "id": 13,
+        "name": "Edo"
+    },
+    {
+        "id": 14,
+        "name": "Ekiti"
+    },
+    {
+        "id": 15,
+        "name": "Enugu"
+    },
+    {
+        "id": 16,
+        "name": "Gombe"
+    },
+    {
+        "id": 17,
+        "name": "Imo"
+    },
+    {
+        "id": 18,
+        "name": "Jigawa"
+    },
+    {
+        "id": 19,
+        "name": "Kaduna"
+    },
+    {
+        "id": 20,
+        "name": "Kano"
+    },
+    {
+        "id": 21,
+        "name": "Katsina"
+    },
+    {
+        "id": 22,
+        "name": "Kebbi"
+    },
+    {
+        "id": 23,
+        "name": "Kogi"
+    },
+    {
+        "id": 24,
+        "name": "Kwara"
+    },
+    {
+        "id": 25,
+        "name": "Lagos"
+    },
+    {
+        "id": 26,
+        "name": "Nasarawa"
+    },
+    {
+        "id": 27,
+        "name": "Niger"
+    },
+    {
+        "id": 28,
+        "name": "Ogun"
+    },
+    {
+        "id": 29,
+        "name": "Ondo"
+    },
+    {
+        "id": 30,
+        "name": "Osun"
+    },
+    {
+        "id": 31,
+        "name": "Oyo"
+    },
+    {
+        "id": 32,
+        "name": "Plateau"
+    },
+    {
+        "id": 33,
+        "name": "Rivers"
+    },
+    {
+        "id": 34,
+        "name": "Sokoto"
+    },
+    {
+        "id": 35,
+        "name": "Taraba"
+    },
+    {
+        "id": 36,
+        "name": "Yobe"
+    },
+    {
+        "id": 37,
+        "name": "Zamfara"
+    }
+]

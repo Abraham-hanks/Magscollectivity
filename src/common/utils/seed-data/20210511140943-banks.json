@@ -1,0 +1,122 @@
+[
+    {
+        "id": "1",
+        "institution_code": "ACCESS",
+        "name": "Access Bank"
+    },
+    {
+        "id": "2",
+        "institution_code": "CHAMS",
+        "name": "Chamsmobile"
+    },
+    {
+        "id": "3",
+        "institution_code": "CITI",
+        "name": "Citibank"
+    },
+    {
+        "id": "4",
+        "institution_code": "DIAMOND",
+        "name": "Diamond Bank"
+    },
+    {
+        "id": "5",
+        "institution_code": "ECO",
+        "name": "Ecobank"
+    },
+    {
+        "id": "6",
+        "institution_code": "ENTERPRISE",
+        "name": "Enterprise Bank"
+    },
+    {
+        "id": "7",
+        "institution_code": "FCMB",
+        "name": "FCMB"
+    },
+    {
+        "id": "8",
+        "institution_code": "FIDELITY",
+        "name": "Fidelity Bank"
+    },
+    {
+        "id": "9",
+        "institution_code": "FBN",
+        "name": "First Bank"
+    },
+    {
+        "id": "10",
+        "institution_code": "GTB",
+        "name": "GTBank"
+    },
+    {
+        "id": "11",
+        "institution_code": "HERITAGE",
+        "name": "Heritage Bank"
+    },
+    {
+        "id": "12",
+        "institution_code": "JAIZ",
+        "name": "Jaiz"
+    },
+    {
+        "id": "13",
+        "institution_code": "KEYSTONE",
+        "name": "Keystone Bank"
+    },
+    {
+        "id": "14",
+        "institution_code": "MAINSTREET",
+        "name": "MainStreet Bank"
+    },
+    {
+        "id": "15",
+        "institution_code": "SKYE",
+        "name": "Skye Bank"
+    },
+    {
+        "id": "16",
+        "institution_code": "STANBIC",
+        "name": "Stanbic IBTC"
+    },
+    {
+        "id": "17",
+        "institution_code": "STANDARD",
+        "name": "Standard Chartered"
+    },
+    {
+        "id": "18",
+        "institution_code": "STERLING",
+        "name": "Sterling Bank"
+    },
+    {
+        "id": "19",
+        "institution_code": "SUNTRUST",
+        "name": "SunTrust Bank"
+    },
+    {
+        "id": "20",
+        "institution_code": "UBA",
+        "name": "UBA"
+    },
+    {
+        "id": "21",
+        "institution_code": "UNION",
+        "name": "Union Bank"
+    },
+    {
+        "id": "22",
+        "institution_code": "UNITY",
+        "name": "Unity Bank"
+    },
+    {
+        "id": "23",
+        "institution_code": "WEMA",
+        "name": "Wema Bank"
+    },
+    {
+        "id": "24",
+        "institution_code": "ZENITH",
+        "name": "Zenith Bank"
+    }
+]

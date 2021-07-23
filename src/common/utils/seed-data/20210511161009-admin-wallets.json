@@ -1,0 +1,14 @@
+[
+  {
+    "name": "PRODUCT_PAYMENT",
+    "is_admin_wallet": true
+  },
+  {
+    "name": "COMPANY_COMMISSION",
+    "is_admin_wallet": true
+  },
+  {
+    "name": "COMPANY_RESERVATION",
+    "is_admin_wallet": true
+  }
+]

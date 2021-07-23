@@ -1,0 +1,538 @@
+[
+  {
+    "name": "read_scope",
+    "description": "Read scope from db"
+  },
+  {
+    "name": "write_scope",
+    "description": "Create new scope"
+  },
+  {
+    "name": "modify_scope",
+    "description": "Modify scope"
+  },
+  {
+    "name": "deactivate_scope",
+    "description": "Decactivate scope"
+  },
+  {
+    "name": "activate_scope",
+    "description": "Activate scope"
+  },
+  {
+    "name": "read_role",
+    "description": "Read role from db"
+  },
+  {
+    "name": "write_role",
+    "description": "Create new role"
+  },
+  {
+    "name": "modify_role",
+    "description": "Modify role"
+  },
+  {
+    "name": "deactivate_role",
+    "description": "Decactivate role"
+  },
+  {
+    "name": "activate_role",
+    "description": "Activate role"
+  },
+  {
+    "name": "read_customer",
+    "description": "Read customer from db"
+  },
+  {
+    "name": "write_customer",
+    "description": "Create new customer"
+  },
+  {
+    "name": "modify_customer",
+    "description": "Modify customer"
+  },
+  {
+    "name": "deactivate_customer",
+    "description": "Decactivate customer"
+  },
+  {
+    "name": "activate_customer",
+    "description": "Activate customer"
+  },
+  {
+    "name": "is_customer",
+    "description": "Is customer"
+  },
+  {
+    "name": "is_realtor",
+    "description": "Is customer"
+  },
+  {
+    "name": "is_customer_or_realtor",
+    "description": "Is customer or realtor"
+  },
+  {
+    "name": "read_admin",
+    "description": "Read admin from db"
+  },
+  {
+    "name": "write_admin",
+    "description": "Create new admin"
+  },
+  {
+    "name": "modify_admin",
+    "description": "Modify admin"
+  },
+  {
+    "name": "deactivate_admin",
+    "description": "Decactivate admin"
+  },
+  {
+    "name": "activate_admin",
+    "description": "Activate admin"
+  },
+  {
+    "name": "read_product",
+    "description": "Read product from db"
+  },
+  {
+    "name": "write_product",
+    "description": "Create new product"
+  },
+  {
+    "name": "modify_product",
+    "description": "Modify product"
+  },
+  {
+    "name": "deactivate_product",
+    "description": "Decactivate product"
+  },
+  {
+    "name": "activate_product",
+    "description": "Activate product"
+  },
+  {
+    "name": "read_payment_plan",
+    "description": "Read payment_plan from db"
+  },
+  {
+    "name": "write_payment_plan",
+    "description": "Create new payment_plan"
+  },
+  {
+    "name": "modify_payment_plan",
+    "description": "Modify payment_plan"
+  },
+  {
+    "name": "deactivate_payment_plan",
+    "description": "Decactivate payment_plan"
+  },
+  {
+    "name": "activate_payment_plan",
+    "description": "Activate payment_plan"
+  },
+  {
+    "name": "read_document",
+    "description": "Read document from db"
+  },
+  {
+    "name": "write_document",
+    "description": "Create new document"
+  },
+  {
+    "name": "modify_document",
+    "description": "Modify document"
+  },
+  {
+    "name": "deactivate_document",
+    "description": "Decactivate document"
+  },
+  {
+    "name": "activate_document",
+    "description": "Activate document"
+  },
+  {
+    "name": "read_product_subscription",
+    "description": "Read product_subscription from db"
+  },
+  {
+    "name": "write_product_subscription",
+    "description": "Create new product_subscription"
+  },
+  {
+    "name": "modify_product_subscription",
+    "description": "Modify product_subscription"
+  },
+  {
+    "name": "deactivate_product_subscription",
+    "description": "Decactivate product_subscription"
+  },
+  {
+    "name": "activate_product_subscription",
+    "description": "Activate product_subscription"
+  },
+  {
+    "name": "read_wallet",
+    "description": "Read wallet from db"
+  },
+  {
+    "name": "write_wallet",
+    "description": "Create new wallet"
+  },
+  {
+    "name": "modify_wallet",
+    "description": "Modify wallet"
+  },
+  {
+    "name": "deactivate_wallet",
+    "description": "Decactivate wallet"
+  },
+  {
+    "name": "activate_wallet",
+    "description": "Activate wallet"
+  },
+  {
+    "name": "fund_wallet",
+    "description": "Fund wallet"
+  },
+  {
+    "name": "read_listing",
+    "description": "Read listing from db"
+  },
+  {
+    "name": "write_listing",
+    "description": "Create new listing"
+  },
+  {
+    "name": "modify_listing",
+    "description": "Modify listing"
+  },
+  {
+    "name": "deactivate_listing",
+    "description": "Decactivate listing"
+  },
+  {
+    "name": "activate_listing",
+    "description": "Activate listing"
+  },
+  {
+    "name": "read_realtor_tree",
+    "description": "Read realtor_tree from db"
+  },
+  {
+    "name": "write_realtor_tree",
+    "description": "Create new realtor_tree"
+  },
+  {
+    "name": "modify_realtor_tree",
+    "description": "Modify realtor_tree"
+  },
+  {
+    "name": "deactivate_realtor_tree",
+    "description": "Decactivate realtor_tree"
+  },
+  {
+    "name": "activate_realtor_tree",
+    "description": "Activate realtor_tree"
+  },
+  {
+    "name": "read_referral",
+    "description": "Read referral from db"
+  },
+  {
+    "name": "write_referral",
+    "description": "Create new referral"
+  },
+  {
+    "name": "modify_referral",
+    "description": "Modify referral"
+  },
+  {
+    "name": "deactivate_referral",
+    "description": "Decactivate referral"
+  },
+  {
+    "name": "activate_referral",
+    "description": "Activate referral"
+  },
+  {
+    "name": "read_change_request",
+    "description": "Read change request from db"
+  },
+  {
+    "name": "write_change_request",
+    "description": "Create new change request"
+  },
+  {
+    "name": "modify_change_request",
+    "description": "Modify change request"
+  },
+  {
+    "name": "deactivate_change_request",
+    "description": "Decactivate change request"
+  },
+  {
+    "name": "activate_change_request",
+    "description": "Activate change request"
+  },
+  {
+    "name": "read_charge",
+    "description": "Read charge from db"
+  },
+  {
+    "name": "write_charge",
+    "description": "Create new charge"
+  },
+  {
+    "name": "modify_charge",
+    "description": "Modify charge"
+  },
+  {
+    "name": "deactivate_charge",
+    "description": "Decactivate charge"
+  },
+  {
+    "name": "activate_charge",
+    "description": "Activate charge"
+  },
+  {
+    "name": "read_network",
+    "description": "Read network from db"
+  },
+  {
+    "name": "write_network",
+    "description": "Create new network"
+  },
+  {
+    "name": "modify_network",
+    "description": "Modify network"
+  },
+  {
+    "name": "deactivate_network",
+    "description": "Decactivate network"
+  },
+  {
+    "name": "activate_network",
+    "description": "Activate network"
+  },
+  {
+    "name": "read_bank_account",
+    "description": "Read bank_account from db"
+  },
+  {
+    "name": "write_bank_account",
+    "description": "Create new bank_account"
+  },
+  {
+    "name": "modify_bank_account",
+    "description": "Modify bank_account"
+  },
+  {
+    "name": "deactivate_bank_account",
+    "description": "Decactivate bank_account"
+  },
+  {
+    "name": "activate_bank_account",
+    "description": "Activate bank_account"
+  },
+  {
+    "name": "read_house_plan",
+    "description": "Read house_plan from db"
+  },
+  {
+    "name": "write_house_plan",
+    "description": "Create new house_plan"
+  },
+  {
+    "name": "modify_house_plan",
+    "description": "Modify house_plan"
+  },
+  {
+    "name": "deactivate_house_plan",
+    "description": "Decactivate house_plan"
+  },
+  {
+    "name": "activate_house_plan",
+    "description": "Activate house_plan"
+  },
+  {
+    "name": "read_transaction",
+    "description": "Read transaction from db"
+  },
+  {
+    "name": "write_transaction",
+    "description": "Create new transaction"
+  },
+  {
+    "name": "modify_transaction",
+    "description": "Modify transaction"
+  },
+  {
+    "name": "deactivate_transaction",
+    "description": "Decactivate transaction"
+  },
+  {
+    "name": "activate_transaction",
+    "description": "Activate transaction"
+  },
+  {
+    "name": "read_payment",
+    "description": "Read payment from db"
+  },
+  {
+    "name": "write_payment",
+    "description": "Create new payment"
+  },
+  {
+    "name": "modify_payment",
+    "description": "Modify payment"
+  },
+  {
+    "name": "deactivate_payment",
+    "description": "Decactivate payment"
+  },
+  {
+    "name": "activate_payment",
+    "description": "Activate payment"
+  },
+  {
+    "name": "read_charge_subscription",
+    "description": "Read charge_subscription from db"
+  },
+  {
+    "name": "write_charge_subscription",
+    "description": "Create new charge_subscription"
+  },
+  {
+    "name": "modify_charge_subscription",
+    "description": "Modify charge_subscription"
+  },
+  {
+    "name": "deactivate_charge_subscription",
+    "description": "Decactivate charge_subscription"
+  },
+  {
+    "name": "activate_charge_subscription",
+    "description": "Activate charge_subscription"
+  },
+  {
+    "name": "read_card_auth",
+    "description": "Read card_auth from db"
+  },
+  {
+    "name": "write_card_auth",
+    "description": "Create new card_auth"
+  },
+  {
+    "name": "modify_card_auth",
+    "description": "Modify card_auth"
+  },
+  {
+    "name": "deactivate_card_auth",
+    "description": "Decactivate card_auth"
+  },
+  {
+    "name": "activate_card_auth",
+    "description": "Activate card_auth"
+  },
+  {
+    "name": "read_voucher",
+    "description": "Read voucher from db"
+  },
+  {
+    "name": "write_voucher",
+    "description": "Create new voucher"
+  },
+  {
+    "name": "modify_voucher",
+    "description": "Modify voucher"
+  },
+  {
+    "name": "deactivate_voucher",
+    "description": "Decactivate voucher"
+  },
+  {
+    "name": "activate_voucher",
+    "description": "Activate voucher"
+  },
+  {
+    "name": "read_promotion",
+    "description": "Read promotion from db"
+  },
+  {
+    "name": "write_promotion",
+    "description": "Create new promotion"
+  },
+  {
+    "name": "modify_promotion",
+    "description": "Modify promotion"
+  },
+  {
+    "name": "deactivate_promotion",
+    "description": "Decactivate promotion"
+  },
+  {
+    "name": "activate_promotion",
+    "description": "Activate promotion"
+  },
+  {
+    "name": "read_cart",
+    "description": "Read cart from db"
+  },
+  {
+    "name": "write_cart",
+    "description": "Create new cart"
+  },
+  {
+    "name": "modify_cart",
+    "description": "Modify cart"
+  },
+  {
+    "name": "deactivate_cart",
+    "description": "Decactivate cart"
+  },
+  {
+    "name": "activate_cart",
+    "description": "Activate cart"
+  },
+  {
+    "name": "read_state",
+    "description": "Read state from db"
+  },
+  {
+    "name": "write_state",
+    "description": "Create new state"
+  },
+  {
+    "name": "modify_state",
+    "description": "Modify state"
+  },
+  {
+    "name": "deactivate_state",
+    "description": "Decactivate state"
+  },
+  {
+    "name": "activate_state",
+    "description": "Activate state"
+  },
+  {
+    "name": "read_lga",
+    "description": "Read lga from db"
+  },
+  {
+    "name": "write_lga",
+    "description": "Create new lga"
+  },
+  {
+    "name": "modify_lga",
+    "description": "Modify lga"
+  },
+  {
+    "name": "deactivate_lga",
+    "description": "Decactivate lga"
+  },
+  {
+    "name": "activate_lga",
+    "description": "Activate lga"
+  }
+]
