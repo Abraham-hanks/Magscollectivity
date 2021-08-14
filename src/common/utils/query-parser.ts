@@ -6,7 +6,7 @@ export const parseQueryObj = (query: any, queryFilters?: string[]): any => {
 
   const params: any = {}
   params.page = query.page ? parseInt(query.page, 10) : 1; // Page defaults to 1
-  params.limit = query.limit ? parseInt(query.limit, 10) : 20; // Limit defaults to 10
+  params.limit = query.limit ? parseInt(query.limit, 10) : 20; // Limit defaults to 20
   params.skip = (params.page - 1) * params.limit;
 
   // search

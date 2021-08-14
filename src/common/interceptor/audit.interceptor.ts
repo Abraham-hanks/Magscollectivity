@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { AuditService } from 'src/modules/utility/services/audit.service';
 import { appModules } from '../constants';
 import * as requestIp from 'request-ip';
+import * as Sentry from '@sentry/node';
 
 @Injectable()
 export class AuditInterceptor implements NestInterceptor {
@@ -50,6 +51,7 @@ export class AuditInterceptor implements NestInterceptor {
     }
     catch (e) {
       // sentry
+      Sentry.captureException(e);
     }
   }
 

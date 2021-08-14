@@ -4,7 +4,7 @@
 const adminWallets = require('../../common/utils/seed-data/20210511161009-admin-wallets.json');
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface) => {
 
     adminWallets.forEach(adminWallet => {
       adminWallet.created_at = new Date();
@@ -14,7 +14,7 @@ module.exports = {
     await queryInterface.bulkInsert('wallets', adminWallets, {});
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     await queryInterface.bulkDelete('wallets', null, {});
   }
 };

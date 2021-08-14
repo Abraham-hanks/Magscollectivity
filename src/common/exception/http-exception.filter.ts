@@ -19,7 +19,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     let status = HttpStatus.INTERNAL_SERVER_ERROR;
     let error: Error[] = [];
 
-    if (configService.isDev)
+    if (!configService.isProduction)
       console.log('error: ' + (exception));
 
     // HttpException

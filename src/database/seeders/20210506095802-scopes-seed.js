@@ -4,7 +4,7 @@
 const scopes = require('../../common/utils/seed-data/20210506095802-scopes.json');
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface) => {
     
     scopes.forEach(scope => {
       scope.created_at = new Date();
@@ -14,7 +14,7 @@ module.exports = {
     await queryInterface.bulkInsert('scopes', scopes, {});
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     await queryInterface.bulkDelete('scopes', null, {});
   }
 };

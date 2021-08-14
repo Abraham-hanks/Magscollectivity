@@ -1,5 +1,5 @@
 import { ApiHideProperty } from '@nestjs/swagger';
-import { IsNumber, IsOptional, Max, Min } from 'class-validator';
+import { Max, Min } from 'class-validator';
 
 enum ORDER_ENUM {
   ASC = 'ASC',

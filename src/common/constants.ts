@@ -1,4 +1,3 @@
-import { meta } from "eslint/lib/rules/*";
 import { getCurrentDate } from "./utils/date-processor";
 
 export const SEQUELIZE = 'SEQUELIZE';
