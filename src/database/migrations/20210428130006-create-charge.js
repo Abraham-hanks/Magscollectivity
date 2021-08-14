@@ -58,6 +58,13 @@ module.exports = {
           key: 'id',
         },
       },
+      updated_by_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'admins',
+          key: 'id',
+        },
+      },
       meta: {
         type: Sequelize.JSON,
         defaultValue: {},

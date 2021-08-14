@@ -53,7 +53,7 @@ module.exports = {
         },
       },
       role_name: {
-        type: Sequelize.ENUM('super_admin', 'admin', 'realtor', 'customer'),
+        type: Sequelize.STRING,
         allowNull: false,
       },
       last_login_at: {

@@ -68,9 +68,9 @@ module.exports = {
         allowNull: true,
       },
     })
-    // .then(() => {
-    //   return queryInterface.addIndex('realtor_trees', ['no_customers_referred'])
-    // });
+    .then(() => {
+      return queryInterface.addIndex('realtor_trees', ['realtor_id'])
+    });
   },
 
   down: async (queryInterface) => {
