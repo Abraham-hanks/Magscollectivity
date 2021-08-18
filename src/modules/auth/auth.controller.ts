@@ -28,7 +28,6 @@ export class AuthController {
     private readonly customerService: CustomerService,
     ) { }
 
-
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(
