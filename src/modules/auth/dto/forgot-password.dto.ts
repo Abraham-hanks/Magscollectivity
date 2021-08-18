@@ -1,4 +1,4 @@
-import { IsNumberString, IsOptional, IsPositive, IsString, MinLength } from "class-validator";
+import { IsNumberString, IsOptional, IsPositive, IsString, Matches, MinLength } from "class-validator";
 
 export class ForgotPasswordDto {
   @IsString()
@@ -9,7 +9,6 @@ export class ForgotPasswordDto {
   callback_url: string;
 }
 
-
 export class ResetPasswordDto {
   @IsPositive()
   id: number;
@@ -17,12 +16,14 @@ export class ResetPasswordDto {
   @IsNumberString()
   token: string;
 
-  @MinLength(6)
-  @IsString()
+  @MinLength(7)
+  @Matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{7,64}$/gm, {
+    message:
+      'Password must be between 7 and 64 characters long with at least 1 special character, number and capital letter',
+  })
   password: string;
 
   @IsOptional()
-  @MinLength(6)
-  @IsString()
+  @MinLength(7)
   confirm_password?: string;
 }
