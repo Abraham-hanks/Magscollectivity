@@ -3,8 +3,6 @@ import { AppController } from './app.controller';
 import { DatabaseModule } from './database/database.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { ChargeModule } from './modules/charge/charge.module';
-import { ChangeRequestModule } from './modules/change-request/change-request.module';
 import { CustomerModule } from './modules/customer/customer.module';
 import { PaymentModule } from './modules/payment/payment.module';
 import { ProductSubscriptionModule } from './modules/product-subscription/product-sub.module';

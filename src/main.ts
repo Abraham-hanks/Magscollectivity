@@ -4,7 +4,6 @@ import { SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { configService } from './common/config/config.service';
 import { swaggerOptions } from './common/config/swagger.config';
-import * as Sentry from '@sentry/node';
 import { AllExceptionsFilter } from './common/exception/http-exception.filter';
 
 const port = configService.getPort();
