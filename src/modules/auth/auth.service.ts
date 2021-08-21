@@ -144,6 +144,10 @@ export class AuthService {
         throw new BadRequestException(ERROR_MESSAGES.AdminRoleNotSelected);
 
       newAdmin.role_name = (await this.roleService.findById(newAdmin.role_id)).name;
+
+      if (newAdmin.role_name === ROLE_NAMES.super_admin) {
+        throw new BadRequestException(ERROR_MESSAGES.SuperAdminAlreadyExists);
+      }
     }
 
     newAdmin.hash = await bcrypt.hash(newAdmin.password, 10);
@@ -530,5 +534,4 @@ export class AuthService {
   async getRoleScopes(roleName: ROLE_NAMES | string): Promise<string[]> {
     return (await this.roleService.findByName(roleName)).scopes;
   }
-
 }

@@ -21,6 +21,10 @@ export class CreateAdminDto extends OmitType(CreateAuthDto,
   @IsOptional()
   @ApiHideProperty()
   is_active = true;
+
+  //for swagger docs
+  @IsOptional()
+  role_id: number;
 }
 
 export class updateAdminDto extends PartialType(PickType(CreateAdminDto,
