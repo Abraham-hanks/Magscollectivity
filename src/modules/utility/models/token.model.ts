@@ -1,9 +1,7 @@
 import { BelongsTo, Column, DataType, Table } from 'sequelize-typescript';
 import { BaseModel } from 'src/database/models/base.model';
 import { AuthModel } from 'src/modules/auth/auth.model';
-import { CustomerModel } from 'src/modules/customer/models/customer.model';
 import { TxtnModel } from 'src/modules/txtn/models/txtn.model';
-
 
 @Table({
   tableName: 'tokens',
@@ -76,5 +74,4 @@ export class TokenModel extends BaseModel {
 
   @BelongsTo(() => TxtnModel, 'txtn_id')
   txtn: TxtnModel;
-
 }

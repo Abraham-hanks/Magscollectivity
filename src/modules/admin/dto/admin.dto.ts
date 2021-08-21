@@ -5,31 +5,28 @@ import { ADMIN_TYPES } from '../constants';
 
 // admin and auth dto
 export class CreateAdminDto extends OmitType(CreateAuthDto,
-    [
-        'phone',
-    ] as const) {
+  [
+    'phone',
+  ] as const) {
 
-    @IsOptional()
-    @ApiHideProperty()
-    auth_id?: number;
+  @IsOptional()
+  @ApiHideProperty()
+  auth_id?: number;
 
-    @IsEnum(Object.values(ADMIN_TYPES))
-    @ApiHideProperty()
-    @IsOptional()
-    type?= ADMIN_TYPES.admin;
+  @IsEnum(Object.values(ADMIN_TYPES))
+  @ApiHideProperty()
+  @IsOptional()
+  type?= ADMIN_TYPES.admin;
 
-    @IsOptional()
-    @ApiHideProperty()
-    is_active = true;
+  @IsOptional()
+  @ApiHideProperty()
+  is_active = true;
 }
 
 export class updateAdminDto extends PartialType(PickType(CreateAdminDto,
-    [
-        'email', 
-        'password',  
-        'role_id'
-    ] as const)) {
+  [
+    'email', 
+    'password',  
+    'role_id'
+  ] as const)) {
 }
-
-
-

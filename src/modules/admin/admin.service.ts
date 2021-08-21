@@ -7,7 +7,6 @@ import { FindOptions, Op } from 'sequelize';
 import { FindAllQueryInterface } from 'src/common/interface/find-query.interface';
 import { ERROR_MESSAGES } from 'src/common/utils/error-messages';
 
-
 @Injectable()
 export class AdminService {
   constructor(
@@ -95,5 +94,4 @@ export class AdminService {
 
     return admin;
   }
-
 }

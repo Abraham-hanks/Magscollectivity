@@ -1,11 +1,10 @@
-import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasMany, HasOne, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, HasMany, HasOne, Table } from 'sequelize-typescript';
 import { BaseModel } from 'src/database/models/base.model';
 import { AuthModel } from '../../auth/auth.model';
 import { BankAccountModel } from '../../payment/models/bank-account.model';
 import { WalletModel } from '../../wallet/wallet.model';
 import { ENUM_GENDER, REALTOR_STAGE } from '../constants';
 import { RealtorTreeModel } from './realtor-tree.model';
-
 
 @Table({
   tableName: 'customers',

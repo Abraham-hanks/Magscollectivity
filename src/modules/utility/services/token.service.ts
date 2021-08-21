@@ -8,7 +8,6 @@ import { DefaultQueryAttributeExclude } from 'src/common/constants';
 import { createCipheriv, createDecipheriv, randomBytes, scrypt } from 'crypto';
 import { promisify } from 'util';
 import { configService } from 'src/common/config/config.service';
-import { AuthObj } from 'src/modules/auth/constants';
 
 @Injectable()
 export class TokenService {

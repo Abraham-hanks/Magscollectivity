@@ -4,12 +4,9 @@ import { BaseQueryFiltersDto } from 'src/common/dto/base-query-filters.dto';
 export class AdminQueryFiltersDto extends BaseQueryFiltersDto {
 
   @IsOptional()
-  phone?: string;
-
-  @IsOptional()
   @IsEmail()
   email?: string;
 
   @IsOptional()
-  is_active: boolean
+  is_active?: boolean
 }
