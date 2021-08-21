@@ -125,6 +125,7 @@ export class CustomerController {
     return this.customerService.findById(id);
   }
 
+  @Role(SCOPES.IS_CUSTOMER_OR_REALTOR)
   @Put('profile')
   async update(
     @GetUser('user_id') userId: number,
@@ -150,5 +151,4 @@ export class CustomerController {
   ) {
     return this.authService.acDeactivateUser(id, ROLE_NAMES.customer, false);
   }
-
 }
