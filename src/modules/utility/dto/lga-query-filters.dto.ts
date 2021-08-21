@@ -1,4 +1,4 @@
-import { IsNumber, IsNumberString, IsOptional } from 'class-validator';
+import { IsNumberString, IsOptional } from 'class-validator';
 import { BaseQueryFiltersDto } from 'src/common/dto/base-query-filters.dto';
 
 export class LgaQueryFiltersDto extends BaseQueryFiltersDto {

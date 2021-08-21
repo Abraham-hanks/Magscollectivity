@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseIntPipe, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { SCOPES } from 'src/common/auth/scopes';
 import { BaseQueryFiltersDto } from 'src/common/dto/base-query-filters.dto';
@@ -34,5 +34,4 @@ export class RealtorTreeController {
   ) {
     return this.realtorTreeService.findById(id);
   }
-
 }

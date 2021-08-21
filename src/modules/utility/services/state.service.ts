@@ -5,7 +5,6 @@ import { ERROR_MESSAGES } from 'src/common/utils/error-messages';
 import { StateModel as State } from '../models/state.model';
 import { STATE_REPOSITORY } from '../constants';
 
-
 @Injectable()
 export class StateService {
   constructor(
