@@ -4,10 +4,8 @@ import { RoleModel as Role } from './models/role.model';
 import { FindAllQueryInterface } from 'src/common/interface/find-query.interface';
 import { pagingParser } from 'src/common/utils/paging-parser';
 import { ROLE_REPOSITORY, SCOPE_REPOSITORY } from './constants';
-import { CreateRoleDto } from './dto/create-role.dto';
 import { ScopeModel as Scope } from './models/scope.model';
 import { ERROR_MESSAGES } from 'src/common/utils/error-messages';
-
 
 @Injectable()
 export class RoleService {

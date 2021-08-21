@@ -40,7 +40,7 @@ export class CreateAuthDto {
   // role_name?: ROLE_NAMES;
 
   @IsOptional()
-  two_fa_enabled = false;
+  two_fa_enabled? = false;
 
   @IsOptional()
   two_fa_type?: TWO_FA_TYPES;

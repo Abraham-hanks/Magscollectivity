@@ -1,8 +1,7 @@
-import { BelongsTo, Column, DataType, ForeignKey, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, Table } from 'sequelize-typescript';
 import { BaseModel } from 'src/database/models/base.model';
 import { AuthModel } from '../auth/auth.model';
 import { ADMIN_TYPES } from './constants';
-
 
 @Table({
   tableName: 'admins',

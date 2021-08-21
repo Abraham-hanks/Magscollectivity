@@ -10,7 +10,6 @@ import { parseQueryObj } from 'src/common/utils/query-parser';
 import { AuditInterceptor } from 'src/common/interceptor/audit.interceptor';
 import { TransformInterceptor } from 'src/common/interceptor/transform.interceptor';
 
-
 @ApiTags('Role')
 @Controller('role')
 @ApiBearerAuth('JWT')
@@ -51,5 +50,4 @@ export class RoleController {
   ) {
     return this.roleService.findById(id);
   }
-
 }
