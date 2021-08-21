@@ -1,9 +1,8 @@
 import { ApiHideProperty } from '@nestjs/swagger';
-import { IsEnum, IsOptional, IsPhoneNumber, MinLength } from 'class-validator';
+import { IsOptional, IsPhoneNumber, MinLength } from 'class-validator';
 import { CreateAuthDto } from 'src/modules/auth/dto/create-auth.dto';
 import { ENUM_GENDER, MARITAL_STATUS, REALTOR_STAGE } from '../../constants';
 
-// export class CreateCustomerDto extends BaseDto {
 export class CreateCustomerDto extends CreateAuthDto {
 
   @IsOptional()
@@ -98,7 +97,7 @@ export class CreateRealtorDto extends CreateCustomerDto {
 
   @ApiHideProperty()
   @IsOptional()
-  realtor_stage = REALTOR_STAGE.inactive_ambassador // goes to ambassador after 1st direct sale
+  realtor_stage = REALTOR_STAGE.referral;
 
   // @IsOptional()
   // max_network_levels: number // TODO

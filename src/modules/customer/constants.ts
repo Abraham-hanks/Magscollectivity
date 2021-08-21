@@ -10,6 +10,7 @@ export enum ENUM_GENDER {
 }
 
 export enum REALTOR_STAGE {
+  referral = 'referral',
   inactive_ambassador = 'inactive_ambassador',
   ambassador = 'ambassador',
   gold = 'gold',
