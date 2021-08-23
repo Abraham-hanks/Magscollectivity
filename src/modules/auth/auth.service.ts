@@ -52,7 +52,7 @@ export class AuthService {
     if (newUser.referral_code) {
       const referrer = await this.customerService.findOne({
         phone: newUser.referral_code,
-        is_realtor: true
+        // is_realtor: true
       }, false);
 
       if (!referrer)

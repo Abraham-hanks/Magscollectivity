@@ -1,7 +1,7 @@
 /* eslint-disable prefer-const */
 import { BadRequestException, forwardRef, Inject, Injectable } from '@nestjs/common';
 import { FindOptions } from 'sequelize';
-import { COMMISSION_RATE, DefaultQueryAttributeExclude } from 'src/common/constants';
+import { CUSTOMER_COMMISSION, DefaultQueryAttributeExclude, PRODUCT_PAYMENT, REALTOR_COMMISSION, WITHHOLDINGTAX } from 'src/common/constants';
 import { FindAllQueryInterface } from 'src/common/interface/find-query.interface';
 import { ERROR_MESSAGES } from 'src/common/utils/error-messages';
 import { pagingParser } from 'src/common/utils/paging-parser';
@@ -12,7 +12,7 @@ import { TXTN_CHANNEL, TXTN_POSITION, TXTN_STATUS, TXTN_TYPE } from 'src/modules
 import { TxtnService } from 'src/modules/txtn/services/txtn.service';
 import { ADMIN_WALLETS } from 'src/modules/wallet/constants';
 import { WalletService } from 'src/modules/wallet/wallet.service';
-import * as Sentry from '@sentry/node';
+//import * as Sentry from '@sentry/node';
 import { CommissionPmt, CreateRealtorTree, CustomerAttributeIncludeFields, REALTOR_STAGE, REALTOR_TREE_REPOSITORY } from '../constants';
 import { CustomerModel as Customer, CustomerModel } from '../models/customer.model';
 import { RealtorTreeModel as RealtorTree } from '../models/realtor-tree.model';
@@ -42,11 +42,18 @@ export class RealtorTreeService {
 
     // update realtor's tree if new user used referral code
     if (newUser.referred_by_id) {
-      const realtorTree = await this.findOne({
+      let realtorTree = await this.findOne({
         "realtor_id": newUser.referred_by_id
-      });
+      }, false);
 
-      if (newUser.is_realtor) {
+      if (!realtorTree) {
+        realtorTree = await this.create({
+          realtor_id: newUser.referred_by_id,
+          for_realtor: false,
+        }, transactionHost);
+      }
+
+      if (newUser.is_realtor && realtorTree.for_realtor) {
         const downline = realtorTree.downline;
         downline.push(newUser.id);
         realtorTree.downline = downline;
@@ -58,7 +65,8 @@ export class RealtorTreeService {
         realtorTree.no_customers_referred++;
 
       await realtorTree.save(transactionHost);
-      this.emailHelper.referralNotification(realtorTree.realtor, newUser.firstname)
+      if (realtorTree.for_realtor)
+        this.emailHelper.referralNotification(realtorTree.realtor, newUser.firstname)
     }
     return true;
   }
@@ -272,230 +280,76 @@ export class RealtorTreeService {
   // process commission and company reservation
   async processCommission(productSubId: number, amountPaid: number, transactionHost): Promise<any> {
 
-    let firstUpline: Customer, secondUpline: Customer;
-    const commissionPmtArr = [];
-    let commissionLeft = COMMISSION_RATE.total;
-    let amount, percentage;
+    const commissionProductPmtArr: CommissionPmt[] = [];
+    let amount;
 
     const adminWalletsObj = await this.walletService.getAdminWallets();
 
     const productSub = await this.productSubService.findById(productSubId);
     const customer = await this.customerService.findById(productSub.customer_id); // cld be customer or realtor
 
+    amount = this.calcPercentage(amountPaid, WITHHOLDINGTAX);
+    commissionProductPmtArr.push({
+      wallet_id: adminWalletsObj[ADMIN_WALLETS.WITHHOLDING_TAX],
+      amount,
+      type: TXTN_TYPE.withholding_tax
+    });
 
     if (!customer.referred_by_id) {
 
-      amount = this.calcPercentage(amountPaid, commissionLeft);
-      commissionPmtArr.push({
-        wallet_id: adminWalletsObj[ADMIN_WALLETS.COMPANY_COMMISSION],
-        amount
-      });
-
       // product payment
-      amount = this.calcPercentage(amountPaid, 70);
-      commissionPmtArr.push({
+      amount = this.calcPercentage(amountPaid, (PRODUCT_PAYMENT + REALTOR_COMMISSION + CUSTOMER_COMMISSION));
+      commissionProductPmtArr.push({
         wallet_id: adminWalletsObj[ADMIN_WALLETS.PRODUCT_PAYMENT],
         amount,
         type: TXTN_TYPE.product_payment
       });
 
-      await this.payCommission(commissionPmtArr, productSub.id, transactionHost);
+      await this.payCommission(commissionProductPmtArr, productSub.id, transactionHost);
       return;
 
     }  // end -- if customer wasn't referred
 
 
-    const immediateRealtor = await this.customerService.findById(customer.referred_by_id);
-    firstUpline = immediateRealtor.upline;
-    secondUpline = (firstUpline && firstUpline.upline) ? firstUpline.upline : null;
+    const immediateUpline = await this.customerService.findById(customer.referred_by_id);
 
-    // console.log('immediateRealtor: ' + JSON.stringify(immediateRealtor.id));
-    // console.log('firstUpline: ' + JSON.stringify(firstUpline));
-    // console.log('secondUpline: ' + JSON.stringify(secondUpline));
+    if (immediateUpline.is_realtor) {
 
-    switch (immediateRealtor.realtor_stage) {
+      //commission to realtor
+      amount = this.calcPercentage(amountPaid, REALTOR_COMMISSION);
+      commissionProductPmtArr.push({
+        wallet_id: immediateUpline.wallet_id,
+        amount
+      });
 
-      // IMMEDIATE REALTOR IS INACTIVE AMBASSADOR
-      case REALTOR_STAGE.inactive_ambassador:
+      // product payment
+      amount = this.calcPercentage(amountPaid, (PRODUCT_PAYMENT + CUSTOMER_COMMISSION));
+      commissionProductPmtArr.push({
+        wallet_id: adminWalletsObj[ADMIN_WALLETS.PRODUCT_PAYMENT],
+        amount,
+        type: TXTN_TYPE.product_payment
+      });
 
-        // 1. pay immedite realtor 10%
-        percentage = COMMISSION_RATE.inactive_ambassador;
-        amount = this.calcPercentage(amountPaid, percentage);
-        commissionPmtArr.push({
-          wallet_id: immediateRealtor.wallet_id,
-          amount
-        });
-        commissionLeft -= percentage;
+    }
+    else {
 
-        // 2. pay 1st upline = immediate upline
-        if (firstUpline && firstUpline.realtor_stage !== REALTOR_STAGE.inactive_ambassador) {
+      //commission to customer
+      amount = this.calcPercentage(amountPaid, CUSTOMER_COMMISSION);
+      commissionProductPmtArr.push({
+        wallet_id: immediateUpline.wallet_id,
+        amount
+      });
 
-          percentage = COMMISSION_RATE.realtor;
-          amount = this.calcPercentage(amountPaid, percentage);
-          commissionPmtArr.push({
-            wallet_id: firstUpline.wallet_id,
-            amount
-          });
-          commissionLeft -= percentage;
-        }
-
-        // 3. pay 2nd upline
-        if (secondUpline && (secondUpline.realtor_stage == REALTOR_STAGE.gold || secondUpline.realtor_stage == REALTOR_STAGE.diamond)) {
-
-          percentage = COMMISSION_RATE.realtor;
-          amount = this.calcPercentage(amountPaid, percentage);
-          commissionPmtArr.push({
-            wallet_id: secondUpline.wallet_id,
-            amount
-          });
-          commissionLeft -= percentage;
-        }
-
-        // 4. pay company reservation
-        percentage = COMMISSION_RATE.company_reservation
-        amount = this.calcPercentage(amountPaid, percentage);
-        commissionPmtArr.push({
-          wallet_id: adminWalletsObj[ADMIN_WALLETS.COMPANY_RESERVATION],
-          amount
-        });
-        commissionLeft -= percentage;
-
-        // 5. pay company commission
-        amount = this.calcPercentage(amountPaid, commissionLeft);
-        commissionPmtArr.push({
-          wallet_id: adminWalletsObj[ADMIN_WALLETS.COMPANY_COMMISSION],
-          amount
-        });
-
-        break;
-
-
-      // IMMEDIATE REALTOR IS ACTIVE AMBASSADOR
-      case REALTOR_STAGE.ambassador:
-
-        // 1. pay immedite realtor 15%
-        percentage = COMMISSION_RATE.ambassador;
-        amount = this.calcPercentage(amountPaid, percentage);
-        commissionPmtArr.push({
-          wallet_id: immediateRealtor.wallet_id,
-          amount
-        });
-        commissionLeft -= percentage;
-
-        // 1. pay 1st upline realtor 5%
-        if (firstUpline && firstUpline.realtor_stage != REALTOR_STAGE.inactive_ambassador) {
-
-          percentage = COMMISSION_RATE.realtor;
-          amount = this.calcPercentage(amountPaid, percentage);
-          commissionPmtArr.push({
-            wallet_id: firstUpline.wallet_id,
-            amount
-          });
-          commissionLeft -= percentage;
-        }
-
-        // 2. if 2nd upline is gold, pay 5%
-        if (secondUpline && secondUpline.realtor_stage == REALTOR_STAGE.gold) {
-
-          percentage = COMMISSION_RATE.realtor;
-          amount = this.calcPercentage(amountPaid, percentage);
-          commissionPmtArr.push({
-            wallet_id: secondUpline.wallet_id,
-            amount
-          });
-          commissionLeft -= percentage;
-        }
-
-        // 3. pay company commission
-        amount = this.calcPercentage(amountPaid, commissionLeft);
-        commissionPmtArr.push({
-          wallet_id: adminWalletsObj[ADMIN_WALLETS.COMPANY_COMMISSION],
-          amount
-        });
-
-        break;
-
-
-      // IMMEDIATE REALTOR IS GOLD
-      case REALTOR_STAGE.gold:
-
-        // 1. pay immedite realtor 20%
-        percentage = COMMISSION_RATE.gold;
-        amount = this.calcPercentage(amountPaid, percentage);
-        commissionPmtArr.push({
-          wallet_id: immediateRealtor.wallet_id,
-          amount
-        });
-        commissionLeft -= percentage;
-
-        // 1. pay 1st upline realtor, only if gold or diamond 5%
-        if (firstUpline && (firstUpline.realtor_stage == REALTOR_STAGE.gold || firstUpline.realtor_stage == REALTOR_STAGE.diamond)) {
-
-          percentage = COMMISSION_RATE.realtor;
-          amount = this.calcPercentage(amountPaid, percentage);
-          commissionPmtArr.push({
-            wallet_id: firstUpline.wallet_id,
-            amount
-          });
-          commissionLeft -= percentage;
-        }
-
-        // 2. if 2nd upline is gold, pay 5%
-        if (secondUpline && secondUpline.realtor_stage == REALTOR_STAGE.gold) {
-
-          percentage = COMMISSION_RATE.realtor;
-          amount = this.calcPercentage(amountPaid, percentage);
-          commissionPmtArr.push({
-            wallet_id: secondUpline.wallet_id,
-            amount
-          });
-          commissionLeft -= percentage;
-        }
-
-        // 3. pay company commission
-        amount = this.calcPercentage(amountPaid, commissionLeft);
-        commissionPmtArr.push({
-          wallet_id: adminWalletsObj[ADMIN_WALLETS.COMPANY_COMMISSION],
-          amount
-        });
-
-        break;
-
-
-      // IMMEDIATE REALTOR IS DIAMOND
-      case REALTOR_STAGE.diamond:
-
-        // 1. pay immedite realtor 25%
-        percentage = COMMISSION_RATE.diamond;
-        amount = this.calcPercentage(amountPaid, percentage);
-        commissionPmtArr.push({
-          wallet_id: immediateRealtor.wallet_id,
-          amount
-        });
-        commissionLeft -= percentage;
-
-        // 3. pay company commission
-        amount = this.calcPercentage(amountPaid, commissionLeft);
-        commissionPmtArr.push({
-          wallet_id: adminWalletsObj[ADMIN_WALLETS.COMPANY_COMMISSION],
-          amount
-        });
-        break;
-
-      default:
-        break;
+      // product payment
+      amount = this.calcPercentage(amountPaid, (PRODUCT_PAYMENT + REALTOR_COMMISSION));
+      commissionProductPmtArr.push({
+        wallet_id: adminWalletsObj[ADMIN_WALLETS.PRODUCT_PAYMENT],
+        amount,
+        type: TXTN_TYPE.product_payment
+      });
     }
 
-    // product payment
-    amount = this.calcPercentage(amountPaid, 70);
-    commissionPmtArr.push({
-      wallet_id: adminWalletsObj[ADMIN_WALLETS.PRODUCT_PAYMENT],
-      amount,
-      type: TXTN_TYPE.product_payment
-    });
-
-    // pay commission
-    await this.payCommission(commissionPmtArr, productSub.id, transactionHost);
+    await this.payCommission(commissionProductPmtArr, productSub.id, transactionHost);
     return true;
   }
 

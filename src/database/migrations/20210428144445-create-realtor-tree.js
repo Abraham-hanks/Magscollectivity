@@ -16,6 +16,10 @@ module.exports = {
           key: 'id',
         },
       },
+      for_realtor: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true,
+      },
       no_customers_referred: {
         type: Sequelize.INTEGER,
       },

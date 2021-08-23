@@ -16,13 +16,18 @@ export class RealtorTreeModel extends BaseModel {
   realtor_id: number;
 
   @Column({
+    defaultValue: true
+  })
+  for_realtor: boolean;
+
+  @Column({
     defaultValue: 0
   })
   no_customers_referred: number;
 
   // upline & downline
   @Column({
-    // defaultValue: [],
+    defaultValue: [],
     type: DataType.ARRAY(DataType.INTEGER)
   })
   downline: Array<number>;

@@ -324,7 +324,7 @@ export class CustomerService {
     return this.customerRepo.findOne({
       where: {
         phone: referralCode,
-        is_realtor: true
+        // is_realtor: true
       },
       attributes: ['firstname', 'lastname'],
 

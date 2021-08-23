@@ -23,7 +23,9 @@ export const BasicCustomerAttributeIncludeFields = ['id', 'firstname', 'lastname
 
 export type CreateRealtorTree = {
   realtor_id: number;
-  // 
+
+  for_realtor?: boolean;
+
   downline?: [];
 
   indirect_downline?: [];
