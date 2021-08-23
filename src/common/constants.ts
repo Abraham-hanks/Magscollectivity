@@ -19,16 +19,10 @@ export type EncryptionObjInterface = {
 }
 
 // commision
-export enum COMMISSION_RATE {
-  total = 30,  // total commission to be shared
-  inactive_ambassador = 10,
-  ambassador = 15,
-  gold = 20,
-  diamond = 25,
-  realtor = 5,
-  company = 5,
-  company_reservation = 5
-};
+export const PRODUCT_PAYMENT = 80;
+export const WITHHOLDINGTAX = 5;  //Withholding Tax percentage on every product sub payment
+export const REALTOR_COMMISSION = 10;
+export const CUSTOMER_COMMISSION = 5;
 
 export const appModules = {
   AdminController: 'AdminModule',
