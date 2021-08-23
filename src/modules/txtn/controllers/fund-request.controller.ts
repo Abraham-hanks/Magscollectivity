@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Query, UseGuards, UseInterceptors, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { parseQueryObj } from 'src/common/utils/query-parser';
 import { FundRequestService } from '../services/fund-request.service';
@@ -13,7 +13,6 @@ import { Role } from '../../auth/decorator/role.decorator';
 import { RoleGuard } from '../../auth/guards/role.guard';
 import { AuditInterceptor } from 'src/common/interceptor/audit.interceptor';
 import { TransformInterceptor } from 'src/common/interceptor/transform.interceptor';
-
 
 @ApiTags('Fund Request')
 @Controller('fund-request')
@@ -33,7 +32,6 @@ export class FundRequestController {
     newFundRequest.customer_id = customerId;
     return this.fundRequestService.create(newFundRequest);
   }
-
 
   @Role(SCOPES.READ_FUND_REQUEST)
   @Get()

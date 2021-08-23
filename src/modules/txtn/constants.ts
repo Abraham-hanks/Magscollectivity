@@ -10,6 +10,7 @@ export enum TXTN_TYPE {
   funding = 'funding',
   withdrawal = 'withdrawal',
   reversal = 'reversal',
+  withholding_tax = 'withholding_tax',
 };
 
 export enum TXTN_CHANNEL {
@@ -40,12 +41,12 @@ export const FUND_REQUEST_REPOSITORY = 'FUND_REQUEST_REPOSITORY';
 export const WITHDRAWAL_REQUEST_REPOSITORY = 'WITHDRAWAL_REQUEST_REPOSITORY';
 
 // queues
-export const TXTN_QUEUE = 'TRANSACTION_QUEUE';
-export const NEW_TXTN_JOB = 'NEW_TXTN_JOB';
-export const RESOLVE_PYSTK_WEBHOOK = 'RESOLVE_PYSTK_WEBHOOK';
 export const APPROVE_FUND_REQUEST = 'APPROVE_FUND_REQUEST';
 export const APPROVE_WITHDRAWAL_REQUEST = 'APPROVE_WITHDRAWAL_REQUEST';
+export const NEW_TXTN_JOB = 'NEW_TXTN_JOB';
 export const PRODUCT_SUB_PAYMENT_FROM_WALLET = 'PRODUCT_SUB_PAYMENT_FROM_WALLET';
+export const TXTN_QUEUE = 'TRANSACTION_QUEUE';
+export const RESOLVE_PYSTK_WEBHOOK = 'RESOLVE_PYSTK_WEBHOOK';
 
 // fund request
 export enum FUND_REQUEST_STATUS {
@@ -66,7 +67,7 @@ export enum WITHDRAWAL_REQUEST_STATUS {
   declined = 'declined'
 }
 
-export const TxtnAttributesExclude = [ 'paystack_auth', ...DefaultQueryAttributeExclude];
+export const TxtnAttributesExclude = [ 'paystack_auth', 'is_admin_txtn', ...DefaultQueryAttributeExclude];
 
 export const formatTransactionAmount = (amount): any => {
   if (!amount) {

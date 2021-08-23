@@ -76,5 +76,4 @@ export class PaymentPlanController {
   ) {
     return this.paymentPlanService.acDeactivatePaymentPlan(id, false);
   }
-
 }

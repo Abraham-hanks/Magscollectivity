@@ -5,7 +5,7 @@ import { FindAllQueryInterface } from 'src/common/interface/find-query.interface
 import { ERROR_MESSAGES } from 'src/common/utils/error-messages';
 import { pagingParser } from 'src/common/utils/paging-parser';
 import { AdminModel } from 'src/modules/admin/admin.model';
-import { PAYMENT_PLAN_REPOSITORY, PAYMENT_PLAN_TYPE } from '../constants';
+import { PAYMENT_PLAN_REPOSITORY } from '../constants';
 import { CreatePaymentPlanDto } from '../dto/payment-plan/create-payment-plan.dto';
 import { UpdatePaymentPlanDto } from '../dto/payment-plan/update-payment-plan.dto';
 import { PaymentPlanModel as PaymentPlan } from '../models/payment-plan.model'

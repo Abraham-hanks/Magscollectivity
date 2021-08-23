@@ -50,7 +50,6 @@ export class FundRequestModel extends BaseModel {
   comments: string;
 
   // associations
-
   @BelongsTo(() => CustomerModel, 'customer_id')
   customer: CustomerModel
 

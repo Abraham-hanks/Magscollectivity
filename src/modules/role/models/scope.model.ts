@@ -9,17 +9,13 @@ import { BaseModel } from 'src/database/models/base.model';
 
 export class ScopeModel extends BaseModel {
 
-  @Column({
-    allowNull: false
-  })
+  @Column
   name: string
 
-  @Column({
-  })
+  @Column
   description?: string
 
-  @Column({
-  })
+  @Column
   created_by_id?: number;
 
   @Column({

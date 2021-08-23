@@ -1,6 +1,5 @@
-import { IsNumberString, IsOptional, IsPositive } from 'class-validator';
+import { IsNumberString, IsOptional } from 'class-validator';
 import { BaseQueryFiltersDto } from 'src/common/dto/base-query-filters.dto';
-
 
 export class PaymentPlanQueryFiltersDto extends BaseQueryFiltersDto {
 

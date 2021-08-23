@@ -1,8 +1,6 @@
 import { ApiHideProperty } from '@nestjs/swagger';
-import { IsEnum, IsNumber, IsOptional, IsPositive, Max, Min } from 'class-validator';
-import { isNotNullOnValue } from 'src/common/decorator/validator/is-not-null-on-value.decorator';
+import { IsEnum, IsOptional, IsPositive, Min } from 'class-validator';
 import { PAYMENT_PLAN_TYPE } from '../../constants';
-
 
 export class CreatePaymentPlanDto {
 
@@ -20,13 +18,8 @@ export class CreatePaymentPlanDto {
   @IsPositive()
   minimun_deposit_amount?: number; //add for swagger docs
 
-  // @Min(1)
-  // @Max(3)
-  // interval? = 1;
-
   @Min(1000 * 100)
   amount_per_unit: number;
-
 
   @IsEnum(PAYMENT_PLAN_TYPE)
   type: PAYMENT_PLAN_TYPE;

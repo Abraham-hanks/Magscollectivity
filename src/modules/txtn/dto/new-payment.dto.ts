@@ -1,7 +1,6 @@
 import { ApiHideProperty } from '@nestjs/swagger';
-import { IsBoolean, IsEnum, IsNumber, IsOptional, IsPositive, IsUrl, Min } from 'class-validator';
+import { IsEnum, IsNumber, IsOptional, IsPositive, IsUrl, Min } from 'class-validator';
 import { PRODUCT_SUB_PAYMENT_METHOD } from 'src/modules/product-subscription/constants';
-
 
 export class FundWalletDto {
 

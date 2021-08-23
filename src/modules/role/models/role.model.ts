@@ -1,5 +1,4 @@
 import { Column, DataType, Table } from 'sequelize-typescript';
-// import { DataType } from 'sequelize/types';
 import { BaseModel } from 'src/database/models/base.model';
 
 @Table({
@@ -15,8 +14,7 @@ export class RoleModel extends BaseModel {
   })
   name: string
 
-  @Column({
-  })
+  @Column
   description?: string
 
   @Column({
@@ -24,8 +22,7 @@ export class RoleModel extends BaseModel {
   })
   scopes: Array<string>;
 
-  @Column({
-  })
+  @Column
   created_by_id?: number;
 
   @Column({

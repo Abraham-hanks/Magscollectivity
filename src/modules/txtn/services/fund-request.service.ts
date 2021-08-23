@@ -1,11 +1,10 @@
 import { BadRequestException, forwardRef, Inject, Injectable } from '@nestjs/common';
-import { FindOptions, Op, literal } from 'sequelize';
+import { FindOptions } from 'sequelize';
 import { FundRequestModel as FundRequest } from '../models/fund-request.model';
 import { FindAllQueryInterface } from 'src/common/interface/find-query.interface';
 import { pagingParser } from 'src/common/utils/paging-parser';
-import { APPROVE_FUND_REQUEST, FUND_REQUEST_PURPOSE, FUND_REQUEST_REPOSITORY, FUND_REQUEST_STATUS, TXTN_CHANNEL, TXTN_POSITION, TXTN_REPOSITORY, TXTN_TYPE } from '../constants';
+import { APPROVE_FUND_REQUEST, FUND_REQUEST_PURPOSE, FUND_REQUEST_REPOSITORY, FUND_REQUEST_STATUS, TXTN_CHANNEL, TXTN_POSITION, TXTN_TYPE } from '../constants';
 import { ERROR_MESSAGES } from 'src/common/utils/error-messages';
-import { WalletModel } from '../../wallet/wallet.model';
 import { ApproveFundRequestDto, CreateFundRequestDto, DeclineFundRequestDto } from '../dto/fund-request/fund-request.dto';
 import { CustomerModel } from 'src/modules/customer/models/customer.model';
 import { DefaultQueryAttributeExclude } from 'src/common/constants';
