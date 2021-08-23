@@ -15,6 +15,7 @@ module.exports = {
           model: 'customers',
           key: 'id',
         },
+        allowNull: false,
       },
       units: {
         type: Sequelize.INTEGER,
@@ -30,7 +31,6 @@ module.exports = {
       amount_paid: {
         type: Sequelize.BIGINT,
       },
-      
       // payment plan details
       amount_per_unit: {
         type: Sequelize.BIGINT,
@@ -87,6 +87,18 @@ module.exports = {
       },
       discount_type: {
         type: Sequelize.STRING,
+      },
+      //allocation fields
+      is_allocated: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      allocations: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+        defaultValue: []
+      },
+      last_allocated_on: {
+        type: Sequelize.DATE,
       },
       status: {
         type: Sequelize.STRING,

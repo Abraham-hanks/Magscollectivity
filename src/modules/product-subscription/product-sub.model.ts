@@ -4,7 +4,6 @@ import { CustomerModel } from 'src/modules/customer/models/customer.model';
 import { ProductModel } from '../product/models/product.model';
 import { PaymentPlanModel } from '../product/models/payment-plan.model';
 
-
 @Table({
   tableName: 'product_subscriptions',
   timestamps: true,
@@ -42,14 +41,10 @@ export class ProductSubModel extends BaseModel {
   }
 
   // payment plan details
-  @Column({
-    allowNull: false
-  })
+  @Column
   amount_per_unit: string;
   
-  @Column({
-    allowNull: false
-  })
+  @Column
   is_installment: boolean;
 
   @Column
@@ -78,18 +73,34 @@ export class ProductSubModel extends BaseModel {
   // promotion_id?: number;
 
   // discount
-  @Column
+  @Column({
+    defaultValue: false,
+  })
   is_discounted?: boolean;
 
   @Column
   discounted_percentage: number;
 
-  @Column({
-  })
+  @Column
   discounted_price: string;
 
   @Column
   discount_type: string;
+
+  //allocation fields
+  @Column({
+    defaultValue: false,
+  }) 
+  is_allocated: boolean;
+
+  @Column({
+    type: DataType.ARRAY(DataType.STRING),
+    defaultValue: [],
+  })
+  allocations: string[];
+
+  @Column
+  last_allocated_on: Date;
 
   @Column({
     allowNull: false

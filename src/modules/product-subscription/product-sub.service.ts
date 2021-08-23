@@ -18,6 +18,8 @@ import { TxtnService } from '../txtn/services/txtn.service';
 import { CustomerModel } from '../customer/models/customer.model';
 import { EmailHelper } from '../utility/services/email/email.helper';
 import { Readable } from 'stream';
+import { CustomerAttributeIncludeFields } from '../customer/constants';
+import { AllocateProductSubDto } from './dto/allocate-product-sub.dto';
 
 
 @Injectable()
@@ -33,6 +35,17 @@ export class ProductSubscriptionService {
 
   private ProductSubQueryAttributeInclude = [
     {
+      model: CustomerModel,
+      attributes: CustomerAttributeIncludeFields,
+      include: [
+        {
+          model: CustomerModel,
+          as: 'upline',
+          attributes: CustomerAttributeIncludeFields
+        }
+      ]
+    },
+    {
       model: ProductModel,
       attributes: {
         exclude: DefaultQueryAttributeExclude
@@ -44,6 +57,10 @@ export class ProductSubscriptionService {
   async create(newSub: CreateProductSubDto): Promise<any> {
 
     const product = await this.productService.findById(newSub.product_id);
+
+    if (!product.is_active)
+      throw new BadRequestException(ERROR_MESSAGES.ProductIsNotActive);
+
     const paymentPlan = await this.paymentPlanService.findById(newSub.payment_plan_id);
     const { minimun_no_units, minimun_deposit_amount } = paymentPlan;
     // calculate total amount
@@ -57,9 +74,14 @@ export class ProductSubscriptionService {
 
     if (minimun_no_units && newSub.units < minimun_no_units)
       throw new BadRequestException(ERROR_MESSAGES.PaymentPlanRequiresMinimumUnitsOf + paymentPlan.minimun_no_units);
-
-    if (minimun_deposit_amount && newSub.initial_payment_amount < parseInt(minimun_deposit_amount))
+    
+    if (paymentPlan.type == PAYMENT_PLAN_TYPE.out_right) {
+      if (newSub.initial_payment_amount < totalAmount)
+        throw new BadRequestException(ERROR_MESSAGES.InitialPaymentAmtForOutrightPlanMustEqualTotalAmount);
+    }
+    else if (minimun_deposit_amount && newSub.initial_payment_amount < parseInt(minimun_deposit_amount)) {
       throw new BadRequestException(ERROR_MESSAGES.PaymentPlanRequiresMinimumDepositAmountOf + paymentPlan.minimun_deposit_amount);
+    }
 
     if (newSub.initial_payment_amount > totalAmount)
       newSub.initial_payment_amount = totalAmount;
@@ -73,7 +95,7 @@ export class ProductSubscriptionService {
     }
 
     // if promotion_id, apply discount
-    newSub.total_amount = parseInt(paymentPlan.amount_per_unit) * newSub.units;
+    //newSub.total_amount = parseInt(paymentPlan.amount_per_unit) * newSub.units;
 
     if (paymentPlan.type == PAYMENT_PLAN_TYPE.installment) {
       newSub.duration = paymentPlan.duration;
@@ -258,6 +280,24 @@ export class ProductSubscriptionService {
     return productSub;
   }
 
+    // this is used for property allocation
+    async allocateProperty(id: number, allocateProductSubDto: AllocateProductSubDto): Promise<ProductSub> {
+
+      const productSub = await this.findById(id);
+      const { status } = productSub;
+  
+      if(status != PRODUCT_SUB_STATUS.completed)
+        throw new BadRequestException(ERROR_MESSAGES.PaymentPropertyForPropertMustBeCompleted);
+  
+      productSub.allocations = allocateProductSubDto.allocations;
+      productSub.last_allocated_on = new Date();
+  
+      if (productSub.allocations.length > 0)
+        productSub.is_allocated = true;
+  
+      return productSub.update(allocateProductSubDto);
+    }
+
 
   // NB: this is called from a Txtn Queue Process, Execute other txtns on this method
   async productSubPaymentSuccess(id: number, txtn_amount: string, transactionHost): Promise<any> {
@@ -287,12 +327,8 @@ export class ProductSubscriptionService {
     }
 
     // if out_right, mark as done
-    if (!productSub.is_installment) {
+    if (!productSub.is_installment)
       productSub.status = PRODUCT_SUB_STATUS.completed;
-
-      // send completed subscription email
-    }
-
   
     if ( txtnAmount >= amountLeft) {
 
@@ -300,34 +336,32 @@ export class ProductSubscriptionService {
         txtnAmount = amountLeft;
 
       productSub.status = PRODUCT_SUB_STATUS.completed;
-      // send completed subscription email
     }
 
     // update product sub
-    // productSub.duration_count += 1;
-    
     productSub.amount_paid = (parseInt(productSub.amount_paid) + txtnAmount).toString();
-    productSub.next_deduction_date = getNextMonthDay();
+    if (productSub.is_installment)
+      productSub.next_deduction_date = getNextMonthDay();
 
     // save productSub
     await productSub.save(transactionHost);
-    
-    this.emailHelper.productSubNotification(productSub);
     
 
     // for testing only!!!!!!!
     // !!!!!!!!!!!!!!
     // try {
       // pay commission
-      await this.realtorTreeService.processCommission(productSub.id, txtnAmount, transactionHost);
+    await this.realtorTreeService.processCommission(productSub.id, txtnAmount, transactionHost);
 
-      // update realtor tree with sales
-      await this.realtorTreeService.updateRealtorSales(productSub.id, txtnAmount, productSub.status, transactionHost);
+    // update realtor tree with sales
+    await this.realtorTreeService.updateRealtorSales(productSub.id, txtnAmount, productSub.status, transactionHost);
 
-      // update realtor stage
-      await this.realtorTreeService.upgradeRealtorStage(productSub.customer_id, transactionHost);
+    // update realtor stage
+    //await this.realtorTreeService.upgradeRealtorStage(productSub.customer_id, transactionHost);
 
-      return true;
+    this.emailHelper.productSubNotification(productSub);
+
+    return true;
     // }
     // catch (e) {
     //   console.log('e: ' + e);

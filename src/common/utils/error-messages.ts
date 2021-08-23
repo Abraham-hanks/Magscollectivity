@@ -72,6 +72,7 @@ export enum ERROR_MESSAGES {
 
   // product
   ProductNotFound = 'Product Not Found',
+  ProductIsNotActive = 'Product is not active',
 
   // product subscription
   ProductSubIdNotSupplied = 'Product subscription id is required',
@@ -83,8 +84,10 @@ export enum ERROR_MESSAGES {
   ProductSubAlreadyCompleted = 'Product Subscription already Completed',
   ProductSubCancelled = 'Product Subscription cancelled',
   ProductSubIdAndCustomerIdMismatch = 'Product Subscription id and customer id mismatch',
+  PaymentPropertyForPropertMustBeCompleted = 'Payment property for propert must be completed',
   PaymentPlanRequiresMinimumUnitsOf = 'Payment Plan Requires Minimum Units of: ',
   PaymentPlanRequiresMinimumDepositAmountOf = 'Payment Plan Requires per unit Minimum Deposit Amount of: ',
+  InitialPaymentAmtForOutrightPlanMustEqualTotalAmount = 'Initial payment amount for outright plan must equal total amount',
 
   // payment plan
   PaymentPlanNotFound = 'Payment plan not found',
@@ -161,5 +164,4 @@ export enum ERROR_MESSAGES {
   WithdrawalRequestAlreadyApproved = 'Withdrawal already approved',
   WithdrawalRequestAlreadyProcessed = 'Withdrawal already processed',
   WithdrawalRequestAlreadyDeclined = 'Withdrawal already declined',
-
 }

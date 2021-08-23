@@ -1,4 +1,4 @@
-import { Body, Header, Param, ParseIntPipe, Post, Query, Res, UseInterceptors } from '@nestjs/common';
+import { Body, Header, Param, ParseIntPipe, Patch, Post, Query, Res, UseInterceptors } from '@nestjs/common';
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { parseQueryObj } from 'src/common/utils/query-parser';
@@ -16,6 +16,7 @@ import { AuditInterceptor } from 'src/common/interceptor/audit.interceptor';
 import { TransformInterceptor } from 'src/common/interceptor/transform.interceptor';
 import * as csvWriter from 'csv-write-stream';
 import { Response } from 'express';
+import { AllocateProductSubDto } from './dto/allocate-product-sub.dto';
 
 
 @ApiTags('Product Subscription')
@@ -122,5 +123,17 @@ export class ProductSubController {
 
     return this.productSubService.findOne(params);
   }
+
+    // this is used for property allocation
+    @Patch('allocate/:id')
+    @Role(SCOPES.IS_ADMIN)
+    async allocateProperty(
+      @Param('id', ParseIntPipe) id: number,
+      @GetUser('user_id') userId: number,
+      @Body() updateProductSub: AllocateProductSubDto
+    ) {
+      updateProductSub.updated_by_id = userId;
+      return this.productSubService.allocateProperty(id, updateProductSub);
+    }
 
 }
