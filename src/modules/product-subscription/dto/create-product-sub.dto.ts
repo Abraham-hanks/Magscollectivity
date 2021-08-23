@@ -72,7 +72,9 @@ export class CreateProductSubDto {
   @IsOptional()
   status = PRODUCT_SUB_STATUS.initiated;
 
-  @IsUrl()
+  @IsUrl({
+    require_tld: false
+  })
   @IsOptional()
   callback_url?: string;
 

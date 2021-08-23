@@ -59,6 +59,13 @@ export class ProductController {
     }
   }
 
+  @Role(SCOPES.IS_ADMIN)
+  @Get('total-units-sold')
+  async getTotalUnitsSold(
+  ) {
+    return this.productService.getTotalUnitsSold();
+  }
+
   @Get('csv')
   @Role(SCOPES.READ_PRODUCT)
   @Header('Content-Type', 'application/json')

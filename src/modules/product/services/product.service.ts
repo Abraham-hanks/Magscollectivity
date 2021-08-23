@@ -3,8 +3,8 @@ import { ProductModel as Product } from '../models/product.model';
 import { PRODUCT_REPOSITORY } from '../constants';
 import { CreateProductDto } from '../dto/product/create-product.dto';
 import { pagingParser } from 'src/common/utils/paging-parser';
-import { FindOptions, Op } from 'sequelize';
-import { CountQueryResponse, FindAllQueryInterface } from 'src/common/interface/find-query.interface';
+import { FindOptions, Op, Sequelize } from 'sequelize';
+import { FindAllQueryInterface } from 'src/common/interface/find-query.interface';
 import { ERROR_MESSAGES } from 'src/common/utils/error-messages';
 import { StateService } from '../../utility/services/state.service';
 import { PaymentPlanModel } from '../models/payment-plan.model';
@@ -13,7 +13,6 @@ import { AdminModel } from 'src/modules/admin/admin.model';
 import { UpdateProductDto } from '../dto/product/update-product.dto';
 import { Readable } from 'stream';
 import { LgaService } from 'src/modules/utility/services/lga.service';
-
 
 @Injectable()
 export class ProductService {
@@ -183,10 +182,27 @@ export class ProductService {
     return count;
   }
 
+  async getTotalUnitsSold(): Promise<any> {
+    
+    return this.productRepo.findAll({
+      attributes: [
+        'property_type',
+        [Sequelize.literal(`(SELECT SUM(total_units - available_units))`), 'total_units_sold'],
+      ],
+      group: ['property_type'],
+    });
+  }
+
 
   async update(id: number, updateProductDto: UpdateProductDto): Promise<Product> {
 
     const product = await this.findById(id);
+
+    if (updateProductDto.state_id)
+      updateProductDto.state_name = (await this.stateService.findById(updateProductDto.state_id)).name;
+
+    if (updateProductDto.lga_id)
+      updateProductDto.lga_name = (await this.lgaService.findById(updateProductDto.lga_id)).name;
 
     return product.update(updateProductDto);
   }

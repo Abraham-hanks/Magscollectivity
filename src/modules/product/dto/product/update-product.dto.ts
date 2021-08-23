@@ -1,18 +1,19 @@
-import { ApiHideProperty, OmitType, PartialType, PickType } from '@nestjs/swagger';
+import { ApiHideProperty, PartialType, PickType } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
-import { BaseQueryFiltersDto } from 'src/common/dto/base-query-filters.dto';
-import { PRODUCT_STATUS } from '../../constants';
 import { CreateProductDto } from './create-product.dto';
-
 
 export class UpdateProductDto extends PartialType(
   PickType(CreateProductDto,
     [
       'name',
       'address',
+      'state_id',
+      'lga_id',
+      'state_name',
+      'lga_name',
       'can_cancel_subscription',
       'can_pause_subscription',
-      'coordinates',
+      'coordinates',     
       'description',
       'features',
       'images',
@@ -24,4 +25,4 @@ export class UpdateProductDto extends PartialType(
   @IsOptional()
   @ApiHideProperty()
   updated_by_id?: number;
- }
+}

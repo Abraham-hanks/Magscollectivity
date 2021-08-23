@@ -4,7 +4,6 @@ import { AdminModel } from 'src/modules/admin/admin.model';
 import { PRODUCT_STATUS, PROPERTY_TYPE } from '../constants';
 import { PaymentPlanModel } from './payment-plan.model';
 
-
 @Table({
   tableName: 'products',
   timestamps: true,
@@ -20,43 +19,32 @@ export class ProductModel extends BaseModel {
 
   @Column({
     type: DataType.ARRAY(DataType.STRING),
+    defaultValue: [],
   })
   images: string[];
 
-  @Column({
-    allowNull: false
-  })
+  @Column
   description: string;
 
-  @Column({
-    allowNull: true
-  })
+  @Column
   address: string;
 
-  @Column({
-    allowNull: true
-  })
+  @Column
+  state_name: string;
+
+  @Column
+  lga_name: string;
+
+  @Column
   state_id: number;
 
-  @Column({
-    allowNull: true
-  })
+  @Column
   lga_id: number;
 
   @Column({
-    allowNull: true
-  })
-  state_name: string;
-
-  @Column({
-    allowNull: true
-  })
-  lga_name: string;
-
-  @Column({
     allowNull: false
   })
-  unit_price: string;
+  unit_price: number;
 
   @Column({
     allowNull: false
@@ -64,9 +52,14 @@ export class ProductModel extends BaseModel {
   total_units: number;
 
   @Column({
-    defaultValue: 0
+    allowNull: false
   })
   available_units: number;
+
+  @Column(DataType.VIRTUAL)
+  get units_sold() {
+    return this.getDataValue('total_units') - this.getDataValue('available_units');
+  }
 
   @Column({
     defaultValue: false
@@ -78,19 +71,18 @@ export class ProductModel extends BaseModel {
   })
   can_pause_subscription: boolean;
 
-  @Column({
-    allowNull: true
-  })
+  @Column
   size_per_unit: number;
 
   @Column({
     type: DataType.ARRAY(DataType.STRING),
+    defaultValue: [],
   })
   features: string[];
 
   @Column({
-    allowNull: true,
     type: DataType.ARRAY(DataType.STRING),
+    defaultValue: [],
   })
   coordinates: string[];
 
@@ -100,7 +92,7 @@ export class ProductModel extends BaseModel {
   shd_pay_commission: boolean;
 
   @Column({
-    type: DataType.ARRAY(DataType.STRING),
+    type: DataType.ARRAY(DataType.STRING)
   })
   locked_fields: string[];
 
@@ -117,6 +109,7 @@ export class ProductModel extends BaseModel {
   property_type: string;
 
   @Column({
+    defaultValue: true,
   })
   is_active: boolean;
 
@@ -125,7 +118,7 @@ export class ProductModel extends BaseModel {
   })
   created_by_id: number;
 
-  @Column({})
+  @Column
   updated_by_id: number;
 
   // associations
