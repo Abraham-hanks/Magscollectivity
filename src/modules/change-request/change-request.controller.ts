@@ -50,27 +50,27 @@ export class ChangeRequestController {
     return this.changeRequestService.findById(id);
   }
 
-  @Role(SCOPES.MODIFY_CHANGE_REQUEST)
-  @Put('approve/:id')
-  async approve(
-    @Param('id', ParseIntPipe) id: number,
-    @GetUser("user_id") user_id: number,
-    @Body() updateChangeReqStatus: UpdateChangeRequestStatus
-  ) {
+  // @Role(SCOPES.MODIFY_CHANGE_REQUEST)
+  // @Put('approve/:id')
+  // async approve(
+  //   @Param('id', ParseIntPipe) id: number,
+  //   @GetUser("user_id") user_id: number,
+  //   @Body() updateChangeReqStatus: UpdateChangeRequestStatus
+  // ) {
 
-    updateChangeReqStatus.admin_id = user_id;
-    return this.changeRequestService.setRequestApproval(id, updateChangeReqStatus, true);
-  }
+  //   updateChangeReqStatus.admin_id = user_id;
+  //   return this.changeRequestService.setRequestApproval(id, updateChangeReqStatus, true);
+  // }
 
-  @Role(SCOPES.MODIFY_CHANGE_REQUEST)
-  @Put('disapprove/:id')
-  async disapprove(
-    @Param('id', ParseIntPipe) id: number,
-    @GetUser("user_id") user_id: number,
-    @Body() updateChangeReqStatus: UpdateChangeRequestStatus
-  ) {
+  // @Role(SCOPES.MODIFY_CHANGE_REQUEST)
+  // @Put('disapprove/:id')
+  // async disapprove(
+  //   @Param('id', ParseIntPipe) id: number,
+  //   @GetUser("user_id") user_id: number,
+  //   @Body() updateChangeReqStatus: UpdateChangeRequestStatus
+  // ) {
 
-    updateChangeReqStatus.admin_id = user_id;
-    return this.changeRequestService.setRequestApproval(id, updateChangeReqStatus, false);
-  }
+  //   updateChangeReqStatus.admin_id = user_id;
+  //   return this.changeRequestService.setRequestApproval(id, updateChangeReqStatus, false);
+  // }
 }

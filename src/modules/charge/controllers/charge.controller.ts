@@ -48,19 +48,19 @@ export class ChargeController {
     return this.chargeService.findById(id)
   }
 
-  @Role(SCOPES.ACTIVATE_CHARGE)
-  @Put('activate/:id')
-  async activate(
-    @Param('id', ParseIntPipe) id: number
-  ) {
-    return this.chargeService.acDeactivateCharge(id, true);
-  }
+  // @Role(SCOPES.ACTIVATE_CHARGE)
+  // @Put('activate/:id')
+  // async activate(
+  //   @Param('id', ParseIntPipe) id: number
+  // ) {
+  //   return this.chargeService.acDeactivateCharge(id, true);
+  // }
 
-  @Role(SCOPES.DEACTIVATE_CHARGE)
-  @Put('deactivate/:id')
-  async deactivate(
-    @Param('id', ParseIntPipe) id: number
-  ) {
-    return this.chargeService.acDeactivateCharge(id, false);
-  }
+  // @Role(SCOPES.DEACTIVATE_CHARGE)
+  // @Put('deactivate/:id')
+  // async deactivate(
+  //   @Param('id', ParseIntPipe) id: number
+  // ) {
+  //   return this.chargeService.acDeactivateCharge(id, false);
+  // }
 }

@@ -90,16 +90,16 @@ export class ChargeService {
     return charge;
   }
   
-  async acDeactivateCharge(id: number, activate: boolean): Promise<Charge> {
-    const charge = await this.findById(id);
+  // async acDeactivateCharge(id: number, activate: boolean): Promise<Charge> {
+  //   const charge = await this.findById(id);
 
-    if (activate && charge.is_active)
-      throw new BadRequestException(ERROR_MESSAGES.ChargeAlreadyActive);
+  //   if (activate && charge.is_active)
+  //     throw new BadRequestException(ERROR_MESSAGES.ChargeAlreadyActive);
 
-    if (!activate && !charge.is_active)
-      throw new BadRequestException(ERROR_MESSAGES.ChargeAlreadyDeactivated);
+  //   if (!activate && !charge.is_active)
+  //     throw new BadRequestException(ERROR_MESSAGES.ChargeAlreadyDeactivated);
 
-    charge.is_active = activate;
-    return charge.save();
-  }
+  //   charge.is_active = activate;
+  //   return charge.save();
+  // }
 }

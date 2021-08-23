@@ -81,31 +81,31 @@ export class ChangeRequestService {
     };
   }
 
-  async setRequestApproval(id: number, updateChangeReqStatus: UpdateChangeRequestStatus, approval: boolean): Promise<ChangeRequest> {
-    const request = await this.findById(id);
+  // async setRequestApproval(id: number, updateChangeReqStatus: UpdateChangeRequestStatus, approval: boolean): Promise<ChangeRequest> {
+  //   const request = await this.findById(id);
 
-    if (approval && request.approved)
-      throw new BadRequestException(ERROR_MESSAGES.ChangeRequestAlreadyApproved);
+  //   if (approval && request.approved)
+  //     throw new BadRequestException(ERROR_MESSAGES.ChangeRequestAlreadyApproved);
     
 
-    if (!approval && !request.approved)
-      throw new BadRequestException(ERROR_MESSAGES.ChangeRequestAlreadyDisapproved);
+  //   if (!approval && !request.approved)
+  //     throw new BadRequestException(ERROR_MESSAGES.ChangeRequestAlreadyDisapproved);
     
 
-    if (updateChangeReqStatus.charge_id)
-      await this.chargeService.findById(updateChangeReqStatus.charge_id)
+  //   if (updateChangeReqStatus.charge_id)
+  //     await this.chargeService.findById(updateChangeReqStatus.charge_id)
     
 
-    request.approved = approval;
-    request.status = approval ? REQUEST_STATUS.APPROVED : REQUEST_STATUS.DISAPPROVED;
-    request.updated_by_id = updateChangeReqStatus.admin_id;
-    request.approval_date = request.approved ? new Date() : null;
-    request.disapproval_reason = request.approved ? null : updateChangeReqStatus.disapproval_reason ? updateChangeReqStatus.disapproval_reason : null;
-    request.charge_id = updateChangeReqStatus.charge_id;
+  //   request.approved = approval;
+  //   request.status = approval ? REQUEST_STATUS.APPROVED : REQUEST_STATUS.DISAPPROVED;
+  //   request.updated_by_id = updateChangeReqStatus.admin_id;
+  //   request.approval_date = request.approved ? new Date() : null;
+  //   request.disapproval_reason = request.approved ? null : updateChangeReqStatus.disapproval_reason ? updateChangeReqStatus.disapproval_reason : null;
+  //   request.charge_id = updateChangeReqStatus.charge_id;
 
-    // send email notification to customer
-    this.emailHelper.changeRequest(request);
+  //   // send email notification to customer
+  //   this.emailHelper.changeRequest(request);
 
-    return request.save();
-  }
+  //   return request.save();
+  // }
 }
