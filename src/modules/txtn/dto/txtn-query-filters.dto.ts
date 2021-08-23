@@ -7,11 +7,14 @@ export class TxtnQueryFiltersDto extends BaseQueryFiltersDto {
   customer_id?: number;
 
   @IsOptional()
+  product_sub_id?: number;
+
+  @IsOptional()
   reference?: string;
 
   @IsOptional()
   @IsEnum(TXTN_TYPE)
-  txtn_type?: TXTN_TYPE;
+  type?: TXTN_TYPE;
 
   @IsOptional()
   channel?: TXTN_CHANNEL;
@@ -22,13 +25,17 @@ export class TxtnQueryFiltersDto extends BaseQueryFiltersDto {
   @IsOptional()
   status?: TXTN_STATUS
 
+  @IsOptional()
+  is_admin_txtn?: TXTN_STATUS;
 }
 
 export const TxtnQueryFiltersArray = [
   'customer_id', 
+  'product_sub_id',
   'reference', 
-  'txtn_type',
+  'type',
   'channel',
   'position',
   'status',
+  'is_admin_txtn',
 ];

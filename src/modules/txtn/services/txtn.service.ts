@@ -1,5 +1,5 @@
 import { BadRequestException, forwardRef, Inject, Injectable } from '@nestjs/common';
-import { FindOptions, Op, literal } from 'sequelize';
+import { FindOptions, Op, literal, QueryTypes } from 'sequelize';
 import { CreateTxtnDto } from '../dto/create-txtn.dto';
 import { TxtnModel as Txtn } from '../models/txtn.model';
 import { FindAllQueryInterface } from 'src/common/interface/find-query.interface';
@@ -25,6 +25,8 @@ import { CustomerModel } from 'src/modules/customer/models/customer.model';
 import { WalletAttributesExclude } from 'src/modules/wallet/constants';
 import { WithdrawalRequestService } from './withdrawal-request.service';
 import { BankAccountService } from 'src/modules/payment/services/bank-account.service';
+import { CustomerAttributeIncludeFields } from 'src/modules/customer/constants';
+import { ProductSubModel } from 'src/modules/product-subscription/product-sub.model';
 
 
 @Injectable()
@@ -78,6 +80,25 @@ export class TxtnService {
       attributes: {
         exclude: TxtnAttributesExclude
       },
+      include: [
+        {
+          model: CustomerModel,
+          attributes: CustomerAttributeIncludeFields
+        },
+        {
+          model: ProductSubModel,
+          attributes: {
+            exclude: DefaultQueryAttributeExclude
+          },
+          required: false
+        },
+        {
+          model: WalletModel,
+          attributes: {
+            exclude: WalletAttributesExclude
+          }
+        },
+      ],
       where: {
         ...params.where
       }
@@ -123,17 +144,25 @@ export class TxtnService {
       where: params,
       include: [
         {
+          model: CustomerModel,
+          attributes: {
+            exclude: CustomerAttributeIncludeFields,
+          },
+        },
+        {
+          model: ProductSubModel,
+          attributes: {
+            exclude: DefaultQueryAttributeExclude
+          },
+          required: false
+        },
+        {
           model: WalletModel,
           attributes: {
             exclude: WalletAttributesExclude
           }
         },
-        {
-          model: CustomerModel,
-          attributes: {
-            exclude: DefaultQueryAttributeExclude,
-          },
-        }
+
       ],
       attributes: { exclude: TxtnAttributesExclude }
     });
@@ -147,12 +176,25 @@ export class TxtnService {
   async findById(id: number, throwNotFoundError = true): Promise<Txtn> {
     const txtn = await this.txtnRepo.findByPk(id, {
 
-      include: [{
-        model: WalletModel,
-        attributes: {
-          exclude: WalletAttributesExclude
+      include: [
+        {
+          model: CustomerModel,
+          attributes: CustomerAttributeIncludeFields
         },
-      }],
+        {
+          model: ProductSubModel,
+          attributes: {
+            exclude: DefaultQueryAttributeExclude
+          },
+          required: false
+        },
+        {
+          model: WalletModel,
+          attributes: {
+            exclude: WalletAttributesExclude
+          }
+        },
+      ],
       attributes: { exclude: TxtnAttributesExclude }
     });
 
@@ -174,6 +216,18 @@ export class TxtnService {
     return this.txtnRepo.sum(columnName, {
       where: params
     });
+  }
+
+  async getTotalCommissionPerProduct(): Promise<any> {
+
+    return this.txtnRepo.sequelize.query(
+      `SELECT SUM(transactions.total_amount) AS "total_commissions_paid"
+      ,"product_subscription"."product_id" AS "product_id"
+      FROM "transactions" AS "transactions" LEFT OUTER JOIN "product_subscriptions" AS "product_subscription" ON "transactions"."product_sub_id" = "product_subscription"."id" AND ("product_subscription"."deleted_at" IS NULL)
+      WHERE ("transactions"."deleted_at" IS NULL AND "transactions"."type" = 'commission')
+      GROUP BY "product_id"`,
+      { type: QueryTypes.SELECT }
+    );
   }
 
   getStream(params) {

@@ -96,6 +96,9 @@ module.exports = {
       position: {
         type: Sequelize.ENUM('credit', 'debit'),
       },
+      is_admin_txtn: {
+        type: Sequelize.BOOLEAN,
+      },
       status: {
         type: Sequelize.STRING
       },

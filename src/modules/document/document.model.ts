@@ -39,6 +39,8 @@ export class DocumentModel extends BaseModel {
   })
   url: string;
 
+  @Column
+  product_sub_id: number;
 
   // associations
   @BelongsTo(() => CustomerModel, 'customer_id')

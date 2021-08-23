@@ -17,7 +17,6 @@ import { TransformInterceptor } from 'src/common/interceptor/transform.intercept
 import * as csvWriter from 'csv-write-stream';
 import { Response } from 'express';
 
-
 @ApiTags('Transaction')
 @Controller('txtn')
 @ApiBearerAuth('JWT')
@@ -61,6 +60,13 @@ export class TxtnController {
     return {
       count
     };
+  }
+
+  @Role(SCOPES.IS_ADMIN)
+  @Get('total-commission-per-product')
+  async getTotalCommissionPerProduct() {
+    
+    return this.txtnService.getTotalCommissionPerProduct();
   }
 
   @Get('csv')
