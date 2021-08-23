@@ -14,7 +14,6 @@ import { ERROR_MESSAGES } from 'src/common/utils/error-messages';
 import { AuditInterceptor } from 'src/common/interceptor/audit.interceptor';
 import { TransformInterceptor } from 'src/common/interceptor/transform.interceptor';
 
-
 @ApiTags('Wallet')
 @ApiBearerAuth('JWT')
 @UseGuards(JwtAuthGuard, RoleGuard)

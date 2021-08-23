@@ -1,4 +1,4 @@
-import { BelongsTo, Column, DataType, HasMany, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, Table } from 'sequelize-typescript';
 import { BaseModel } from 'src/database/models/base.model';
 // import { TxtnModel } from '../txtn/txtn.model';
 import { CustomerModel } from '../customer/models/customer.model';
@@ -33,9 +33,7 @@ export class WalletModel extends BaseModel {
   })
   customer_id: number;
 
-  @Column({
-    allowNull: true
-  })
+  @Column
   vba_no: string;
 
   @Column({

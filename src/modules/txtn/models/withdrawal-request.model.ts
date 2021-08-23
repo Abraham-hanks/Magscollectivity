@@ -39,7 +39,6 @@ export class WithdrawalRequestModel extends BaseModel {
   updated_by_id?: number;
 
   // associations
-
   @BelongsTo(() => CustomerModel, 'customer_id')
   customer: CustomerModel
 

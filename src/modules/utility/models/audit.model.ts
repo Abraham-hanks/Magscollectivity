@@ -12,42 +12,34 @@ export class AuditModel extends BaseModel {
   @Column
   label: string;
 
-  @Column({
-  })
+  @Column
   auth_id: number;
 
-  @Column({
-  })
+  @Column
+  item_id: number;
+
+  @Column
   module: string;
 
-  @Column({
-  })
+  @Column
   request_body: string;
 
-  @Column({
-  })
+  @Column
   response_body: string;
 
-  @Column({
-  })
+  @Column
   response_message: string;
 
-  @Column({
-    // allowNull: false
-  })
+  @Column
   status_code: number;
 
   @Column
   controller_method: string;
 
-  @Column({
-    // allowNull: false
-  })
+  @Column
   request_method: string;
 
-  @Column({
-    // allowNull: false
-  })
+  @Column
   request_url: string;
 
   @Column
@@ -57,7 +49,6 @@ export class AuditModel extends BaseModel {
   ip_address: string;
 
   // associations
-
   @BelongsTo(() => AuthModel, 'auth_id')
   user: AuthModel;
 }

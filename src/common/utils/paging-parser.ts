@@ -1,6 +1,5 @@
 import { Paging } from "../interface/pagination.interface";
 
-
 export const pagingParser = (query, total: number, rowLength: number): Paging => {
   return {
     total,

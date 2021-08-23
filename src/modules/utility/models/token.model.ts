@@ -11,49 +11,43 @@ import { TxtnModel } from 'src/modules/txtn/models/txtn.model';
 
 export class TokenModel extends BaseModel {
 
-  @Column({
-    allowNull: false
-  })
+  @Column
   auth_id: number;
 
-  @Column({
-    // allowNull: false
-  })
+  @Column
   user_id: number;
 
   @Column
   txtn_id: number;
 
-  @Column
+  @Column({
+    allowNull: false
+  })
   expires_at: Date;
 
   // @Column
   // is_active: boolean;
 
-  @Column
+  @Column({
+    defaultValue: false
+  })
   is_expired: boolean;
 
-  @Column
+  @Column({
+    defaultValue: false
+  })
   is_verified: boolean;
 
-  @Column({
-    allowNull: false
-  })
+  @Column
   value: string;
 
-  @Column({
-    allowNull: false
-  })
+  @Column
   type: string;
 
-  @Column({
-    allowNull: false
-  })
+  @Column
   valid_for: number;
 
-  @Column({
-    allowNull: true
-  })
+  @Column
   no_of_xters: number; // for token regeneration
 
   @Column(DataType.VIRTUAL)
@@ -68,9 +62,6 @@ export class TokenModel extends BaseModel {
   // associations
   @BelongsTo(() => AuthModel, 'auth_id')
   auth: AuthModel;
-
-  // @BelongsTo(() => CustomerModel, 'customer_id')
-  // customer: CustomerModel;
 
   @BelongsTo(() => TxtnModel, 'txtn_id')
   txtn: TxtnModel;

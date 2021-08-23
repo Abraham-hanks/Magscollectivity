@@ -2,7 +2,6 @@ import { BelongsTo, Column, Table } from 'sequelize-typescript';
 import { BaseModel } from 'src/database/models/base.model';
 import { StateModel } from './state.model';
 
-
 @Table({
   tableName: 'lgas',
   timestamps: true,

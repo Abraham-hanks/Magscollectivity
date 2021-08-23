@@ -1,7 +1,7 @@
 import { Process, Processor } from '@nestjs/bull';
 import { Job } from 'bull';
 import * as Sentry from '@sentry/node';
-import { APPROVE_FUND_REQUEST, APPROVE_WITHDRAWAL_REQUEST, NEW_TXTN_JOB, PRODUCT_SUB_PAYMENT_FROM_WALLET, RESOLVE_PYSTK_WEBHOOK, TXTN_QUEUE } from '../constants';
+import { APPROVE_FUND_REQUEST, APPROVE_WITHDRAWAL_REQUEST, PRODUCT_SUB_PAYMENT_FROM_WALLET, RESOLVE_PYSTK_WEBHOOK, TXTN_QUEUE } from '../constants';
 import { TxtnService } from '../services/txtn.service';
 import { configService } from 'src/common/config/config.service';
 

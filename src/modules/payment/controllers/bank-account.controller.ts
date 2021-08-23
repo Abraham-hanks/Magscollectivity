@@ -11,7 +11,6 @@ import { CreateBankAccountDto } from '../dto/bank-account/create-bank-account.dt
 import { BankAccountService } from '../services/bank-account.service';
 import { PaystackService } from '../services/paystack.service';
 
-
 @ApiTags('Bank Account')
 @ApiBearerAuth('JWT')
 @UseGuards(JwtAuthGuard, RoleGuard)

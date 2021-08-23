@@ -1,7 +1,6 @@
 import { Column, Table } from 'sequelize-typescript';
 import { BaseModel } from 'src/database/models/base.model';
 
-
 @Table({
   tableName: 'states',
   timestamps: true,
@@ -10,7 +9,7 @@ import { BaseModel } from 'src/database/models/base.model';
 
 export class StateModel extends BaseModel {
   @Column({
-    allowNull: false
+    unique: true
   })
   name: string;
 }

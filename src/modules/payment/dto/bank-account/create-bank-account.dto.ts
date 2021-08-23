@@ -1,6 +1,5 @@
 import { ApiHideProperty } from '@nestjs/swagger';
-import { IsOptional, IsPositive, IsString, Length, MinLength } from 'class-validator';
-
+import { IsOptional, IsPositive, IsString, Length } from 'class-validator';
 
 export class CreateBankAccountDto {
   @ApiHideProperty()
