@@ -2,7 +2,6 @@ import { BelongsTo, Column, Table } from 'sequelize-typescript';
 import { BaseModel } from 'src/database/models/base.model';
 import { CustomerModel } from 'src/modules/customer/models/customer.model';
 
-
 @Table({
   tableName: 'bank_accounts',
   timestamps: true,
@@ -29,12 +28,14 @@ export class BankAccountModel extends BaseModel {
   bank_name: string;
 
   @Column({
-    allowNull: false
+    allowNull: false,
+    unique: true
   })
   account_number: string;
 
   @Column({
-    allowNull: false
+    allowNull: false,
+    unique: true
   })
   account_name: string; 
 

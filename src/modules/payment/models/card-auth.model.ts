@@ -48,9 +48,6 @@ export class CardAuthModel extends BaseModel {
   bank_name: string;
 
   @Column
-  bank_id: number
-
-  @Column
   channel: string;
 
   @Column({
