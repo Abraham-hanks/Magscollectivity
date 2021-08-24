@@ -26,13 +26,15 @@ export class TxtnProcessor {
     catch (e) {
       // retry transaction
 
-      if (!configService.isDev) {
-        const scope = new Sentry.Scope();
-        scope.setTag('txtn_queue', RESOLVE_PYSTK_WEBHOOK);
-        Sentry.captureException(e);
-      }
+      // if (!configService.isDev) {
+      //   const scope = new Sentry.Scope();
+      //   scope.setTag('txtn_queue', RESOLVE_PYSTK_WEBHOOK);
+      //   Sentry.captureException(e);
+      //   if (configService.isStaging)
+      //     console.log('e: ' + e);
+      // }
 
-      else
+      // else
         console.log('e: ' + e);
     }
   }
@@ -47,13 +49,15 @@ export class TxtnProcessor {
     catch (e) {
       // retry transaction
 
-      if (!configService.isDev) {
-        const scope = new Sentry.Scope();
-        scope.setTag('txtn_queue', PRODUCT_SUB_PAYMENT_FROM_WALLET);
-        Sentry.captureException(e);
-      }
+      // if (!configService.isDev) {
+      //   const scope = new Sentry.Scope();
+      //   scope.setTag('txtn_queue', PRODUCT_SUB_PAYMENT_FROM_WALLET);
+      //   Sentry.captureException(e);
+      //   if (configService.isStaging)
+      //     console.log('e: ' + e);
+      // }
 
-      else
+      // else
         console.log('e: ' + e);
     }
   }
@@ -67,13 +71,15 @@ export class TxtnProcessor {
     }
     catch (e) {
       // retry transaction
-      if (!configService.isDev) {
-        const scope = new Sentry.Scope();
-        scope.setTag('txtn_queue', APPROVE_FUND_REQUEST);
-        Sentry.captureException(e);
-      }
+      // if (!configService.isDev) {
+      //   const scope = new Sentry.Scope();
+      //   scope.setTag('txtn_queue', APPROVE_FUND_REQUEST);
+      //   Sentry.captureException(e);
+      //   if (configService.isStaging)
+      //     console.log('e: ' + e);
+      // }
 
-      else
+      // else
         console.log('e: ' + e);
     }
   }
@@ -87,13 +93,14 @@ export class TxtnProcessor {
     }
     catch (e) {
       // retry transaction
-      if (!configService.isDev) {
-        const scope = new Sentry.Scope();
-        scope.setTag('txtn_queue', APPROVE_WITHDRAWAL_REQUEST);
-        Sentry.captureException(e);
-      }
+      // if (!configService.isDev) {
+      //   const scope = new Sentry.Scope();
+      //   scope.setTag('txtn_queue', APPROVE_WITHDRAWAL_REQUEST);
+      //   Sentry.captureException(e);
 
-      else
+      // }
+
+      // else
         console.log('e: ' + e);
     }
   }

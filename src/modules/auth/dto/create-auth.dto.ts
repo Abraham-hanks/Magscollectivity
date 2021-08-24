@@ -46,6 +46,8 @@ export class CreateAuthDto {
   two_fa_type?: TWO_FA_TYPES;
 
   @IsOptional()
-  @IsUrl()
+  @IsUrl({
+    require_tld: false
+  })
   callback_url: string;
 }

@@ -12,7 +12,9 @@ export class FundWalletDto {
   @Min(1000 * 100) // min amount is 1000 
   amount: number
 
-  @IsUrl()
+  @IsUrl({
+    require_tld: false
+  })
   @IsOptional()
   callback_url?: string;
 }

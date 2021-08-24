@@ -27,10 +27,10 @@ export class EmailService {
       "help_url": this.APP_URL,
       "support_url": this.APP_URL,
       "action_url": this.APP_URL,
-      "office_address": "153, street name. Bus stop, Lagos Nigeria",
-      "phone": "08025990186",
+      "office_address": "17 Freedom Way, 3rd Roundabout, Lekki Phase 1, Lagos State, Nigeria",
+      "phone": "08038028522",
       "business_name": "Magscollectivity",
-      "support_mail": "support@magscollectivity.com",
+      "support_mail": "magscollectivity@gmail.com",
       "business_type": "LLC",
     };
 
@@ -73,13 +73,13 @@ export class EmailService {
 			}
 			catch (e) {
 				// log to sentry
-				if (!configService.isDev) {
-					const scope = new Sentry.Scope();
-					scope.setTag('section', 'send email');
-					Sentry.captureException(e);
-				}
+				// if (!configService.isDev) {
+				// 	const scope = new Sentry.Scope();
+				// 	scope.setTag('section', 'send email');
+				// 	Sentry.captureException(e);
+				// }
 
-				else
+				// else
 					console.log('e: ' + e);
 			};
 		}
