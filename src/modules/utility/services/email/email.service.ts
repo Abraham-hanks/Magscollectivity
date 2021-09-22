@@ -27,11 +27,11 @@ export class EmailService {
       "help_url": this.APP_URL,
       "support_url": this.APP_URL,
       "action_url": this.APP_URL,
-      "office_address": "17 Freedom Way, 3rd Roundabout, Lekki Phase 1, Lagos State, Nigeria",
-      "phone": "08038028522",
-      "business_name": "Magscollectivity",
+      "office_address": "6A Shokeye Str Ire Akari Estate Isolo Lagos", // "17 Freedom Way, 3rd Roundabout, Lekki Phase 1, Lagos State, Nigeria",
+      "phone": "+2347084912048", // "08038028522",
+      "business_name": "Etsea",
       "support_mail": "magscollectivity@gmail.com",
-      "business_type": "LLC",
+      "business_type": "Limited" // "LLC",
     };
 
 		const content = {
@@ -48,8 +48,8 @@ export class EmailService {
 			}
 		];
 
-		if (!configService.isProduction)
-			receipients.push({ "Email": "magscollectivitywebapp@gmail.com" })
+		// if (!configService.isProduction)
+		// 	receipients.push({ "Email": "magscollectivitywebapp@gmail.com" })
 
 		const headers = {
 			"Content-Type": "application/x-www-form-urlencoded",

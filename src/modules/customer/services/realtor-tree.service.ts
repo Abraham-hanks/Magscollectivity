@@ -379,7 +379,7 @@ export class RealtorTreeService {
       
       if (!isAdminWallet) {
         const customer = await this.customerService.findById(txtn.customer_id, false);
-        this.emailHelper.transactionNotification(txtn, customer);
+        this.emailHelper.commissionNotification(txtn, customer);
       }
       
     }

@@ -40,7 +40,7 @@ export class EmailHelper {
     const newEmail: EmailObj = {
       to: auth.email,
       subject: 'Email Verification',
-      templateName: 'email-verification',
+      templateName: 'gig-email-verification',
       templatePayload,
     };
 
@@ -87,7 +87,7 @@ export class EmailHelper {
     const newEmail: EmailObj = {
       to: auth.email,
       subject: 'Account Password Reset',
-      templateName: 'forgot-password',
+      templateName: 'gig-forgot-password',
       templatePayload,
     };
 
@@ -135,8 +135,8 @@ export class EmailHelper {
 
     const newEmail: EmailObj = {
       to: productSub.customer.email,
-      subject: 'Property Purchase Confirmed',
-      templateName: 'product-sub-notification',
+      subject:'', // 'Property Purchase Confirmed',
+      templateName: 'gig-product-sub-notification',
       templatePayload,
     };
 
@@ -218,6 +218,46 @@ export class EmailHelper {
       to: customer.email,
       subject: 'Transaction Notification',
       templateName: 'transaction-notification',
+      templatePayload,
+    };
+
+    this.emailQueue.add(SEND_EMAIL, newEmail);
+
+    return true;
+  };
+
+  commissionNotification(transaction: Txtn, customer: Customer): boolean {
+
+    const txtnMessage = {
+      //Transaction type
+      product_payment : 'Purchase payment',
+      commission : 'Commission payment',
+      product_subscription : 'Purchase payment',
+      charge_payment: 'Charge payment',
+      funding: 'Wallet funding',
+      withdrawal: 'Wallet withdrawal',
+      reversal: 'reversal',
+      //Transaction status
+      success: 'was successful',
+      failed: 'failed',
+      pending: 'is pending',
+      initiated: 'is initiated',
+    }
+
+    const templatePayload = {
+      firstname: customer.firstname,
+      transaction_type: txtnMessage[transaction.type],
+      status: txtnMessage[transaction.status],
+      amount: formatCurrencyForEmail(transaction.total_amount),
+      transaction_reference: transaction.reference,
+      transaction_status: transaction.status,
+      transaction_date: formatDateForEmail(transaction.updated_at),
+    };
+
+    const newEmail: EmailObj = {
+      to: customer.email,
+      subject: 'Transaction Notification',
+      templateName: 'gig-transaction-notification',
       templatePayload,
     };
 
